@@ -24,8 +24,8 @@ export const PROJECTS = [
 ]
 
 export const CONTACT = {
-  email: 'elliotscottdesign@gmail.com', // switch to hello@wackyworks.co.uk once email is live
-  displayEmail: 'hello@wackyworks.co.uk',
+  email: 'elliot@wackyworks.co.uk',
+  displayEmail: 'elliot@wackyworks.co.uk',
   address: 'London Fields · Hackney · E8',
   company: 'Wacky Works Ltd',
 }
