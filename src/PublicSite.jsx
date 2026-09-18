@@ -10,7 +10,7 @@ import {
   PACKAGE_NOTES,
   PRICING_SHEET,
 } from './catalog'
-import { useContent, useContentImage } from './lib/content.jsx'
+import { useContent, useContentImage, parseImageValue } from './lib/content.jsx'
 
 // Fallback lookup so every reference-by-key resolves to a sensible
 // default even before anything has been saved through the admin.
@@ -250,16 +250,16 @@ function Obstacles({ onImage }) {
             const size = c(`obstacles.item_${n}.size`, o.size)
             const image = c(`obstacles.item_${n}.image`, o.img)
             const blurb = c(`obstacles.item_${n}.blurb`, o.blurb)
-            const src = parseImgSrc(image)
+            const d = parseImg(image)
             return (
               <button
                 key={n}
-                onClick={() => onImage(src)}
+                onClick={() => onImage(d.src)}
                 className="card"
                 style={{ textAlign: 'left', padding: 0, background: 'var(--ink-2)', color: 'inherit' }}
               >
                 <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', background: 'var(--ink-3)' }}>
-                  <img src={src} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={d.src} alt={name} style={imgStyle(d)} />
                 </div>
                 <div style={{ padding: '18px 20px' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, marginBottom: 8 }}>
@@ -293,7 +293,7 @@ function Finishes({ onImage }) {
           {FINISHES.map((f, i) => {
             const n = i + 1
             const name = c(`finishes.item_${n}.name`, f.name)
-            const image = parseImgSrc(c(`finishes.item_${n}.image`, f.img))
+            const d = parseImg(c(`finishes.item_${n}.image`, f.img))
             const tagline = c(`finishes.item_${n}.tagline`, f.tagline)
             const price = c(`finishes.item_${n}.price`, f.price)
             const includes = c(`finishes.item_${n}.includes`, f.includes.join('\n'))
@@ -302,9 +302,9 @@ function Finishes({ onImage }) {
               .filter(Boolean)
             return (
               <div key={n} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-                <button onClick={() => onImage(image)} style={{ padding: 0, background: 'transparent', textAlign: 'left', width: '100%' }}>
+                <button onClick={() => onImage(d.src)} style={{ padding: 0, background: 'transparent', textAlign: 'left', width: '100%' }}>
                   <div style={{ aspectRatio: '5 / 4', overflow: 'hidden' }}>
-                    <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={d.src} alt={name} style={imgStyle(d)} />
                   </div>
                 </button>
                 <div style={{ padding: '20px 22px 24px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
@@ -349,12 +349,12 @@ function Services({ onImage }) {
           {SERVICES.map((s, i) => {
             const n = i + 1
             const name = c(`services.item_${n}.name`, s.name)
-            const image = parseImgSrc(c(`services.item_${n}.image`, s.img))
+            const d = parseImg(c(`services.item_${n}.image`, s.img))
             const detail = c(`services.item_${n}.detail`, s.detail)
             return (
-              <button key={n} onClick={() => onImage(image)} className="card" style={{ textAlign: 'left', padding: 0, background: 'var(--ink-2)', color: 'inherit' }}>
+              <button key={n} onClick={() => onImage(d.src)} className="card" style={{ textAlign: 'left', padding: 0, background: 'var(--ink-2)', color: 'inherit' }}>
                 <div style={{ aspectRatio: '5 / 4', overflow: 'hidden' }}>
-                  <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={d.src} alt={name} style={imgStyle(d)} />
                 </div>
                 <div style={{ padding: '18px 20px' }}>
                   <h3 className="display" style={{ fontSize: 20, color: 'var(--cream)', marginBottom: 8 }}>{name}</h3>
@@ -374,7 +374,7 @@ function Services({ onImage }) {
 function Packages({ onImage }) {
   const c = useContent()
   const notes = c('packages.notes', F['packages.notes']).split('\n').filter(Boolean)
-  const refSheet = parseImgSrc(c('packages.reference_sheet', F['packages.reference_sheet']))
+  const refD = parseImg(c('packages.reference_sheet', F['packages.reference_sheet']))
   return (
     <section id="packages" style={{ padding: '90px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
@@ -407,8 +407,8 @@ function Packages({ onImage }) {
             </li>
           ))}
         </ul>
-        <figure onClick={() => onImage(refSheet)} style={{ cursor: 'zoom-in', borderRadius: 14, overflow: 'hidden', border: '1px solid var(--line)' }}>
-          <img src={refSheet} alt="Full pricing sheet" style={{ width: '100%' }} />
+        <figure onClick={() => onImage(refD.src)} style={{ cursor: 'zoom-in', borderRadius: 14, overflow: 'hidden', border: '1px solid var(--line)' }}>
+          <img src={refD.src} alt="Full pricing sheet" style={{ width: '100%' }} />
           <figcaption style={{ padding: '12px 16px', fontSize: 12, color: 'var(--cream-dim)' }}>
             Full pricing sheet (from the catalogue).
           </figcaption>
@@ -541,18 +541,23 @@ function SectionHead({ eyebrow, title, intro }) {
 }
 
 // Image values in page_content can be either a plain URL string or
-// a JSON blob {src, fit, x, y, zoom}. Pull out just the src for
-// unstyled <img src> use.
+// a JSON blob {src, fit, x, y, zoom}. parseImg returns the full
+// display object; parseImgSrc extracts just the URL for the
+// lightbox (which ignores crop/zoom).
+function parseImg(v) {
+  return parseImageValue(v)
+}
 function parseImgSrc(v) {
-  if (!v) return ''
-  if (typeof v !== 'string') return v.src || ''
-  const t = v.trim()
-  if (t.startsWith('{')) {
-    try {
-      return JSON.parse(t).src || ''
-    } catch {
-      return t
-    }
+  return parseImg(v).src
+}
+// Style object to apply the stored crop/zoom to an <img> element.
+function imgStyle(d) {
+  return {
+    width: '100%',
+    height: '100%',
+    objectFit: d.fit,
+    objectPosition: `${d.x}% ${d.y}%`,
+    transform: d.zoom && d.zoom !== 1 ? `scale(${d.zoom})` : undefined,
+    transformOrigin: `${d.x}% ${d.y}%`,
   }
-  return t
 }
