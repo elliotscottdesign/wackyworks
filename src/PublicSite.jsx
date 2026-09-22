@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { X, ArrowUpRight, Mail, Check } from 'lucide-react'
 import {
   CONTACT,
@@ -180,9 +181,9 @@ function Hero() {
         <p style={{ fontSize: 18, color: 'var(--cream-dim)', maxWidth: 660, marginBottom: 34, whiteSpace: 'pre-line' }}>
           <Editable k="hero.subhead" multiline>{c('hero.subhead', F['hero.subhead'])}</Editable>
         </p>
-        <a href={`mailto:${email}?subject=Adventure%20Golf%20Enquiry`} style={ctaBtn}>
+        <Link to="/start-a-project" style={ctaBtn}>
           <Editable k="hero.cta_label">{c('hero.cta_label', F['hero.cta_label'])}</Editable> <ArrowUpRight size={16} />
-        </a>
+        </Link>
       </div>
     </section>
   )
@@ -510,9 +511,9 @@ function CTA() {
         <p style={{ fontSize: 16, color: 'var(--cream-dim)', maxWidth: 560, margin: '0 auto 28px' }}>
           <Editable k="cta.body" multiline>{c('cta.body', F['cta.body'])}</Editable>
         </p>
-        <a href={`mailto:${email}?subject=Adventure%20Golf%20Enquiry`} style={ctaBtn}>
-          Email {email} <ArrowUpRight size={16} />
-        </a>
+        <Link to="/start-a-project" style={ctaBtn}>
+          Start a project <ArrowUpRight size={16} />
+        </Link>
       </div>
     </section>
   )

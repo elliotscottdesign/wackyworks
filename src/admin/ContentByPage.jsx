@@ -5,6 +5,7 @@ import { fetchContentByPage, saveContentBatch } from '../lib/db/content.js'
 import { PAGES } from './AdminLayout.jsx'
 import MediaPicker from '../edit/MediaPicker.jsx'
 import { parseImageValue, serialiseImageValue } from '../lib/content.jsx'
+import { FALLBACKS } from '../fallbacks.js'
 
 // Slot aspect ratios per key prefix — determines the shape of the
 // crop preview in the ImagePositioner. Matches what PublicSite.jsx
@@ -23,7 +24,9 @@ export default function ContentByPage() {
   const meta = PAGES.find((p) => p.slug === page)
 
   const [rows, setRows] = useState([])
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({})     // current input state
+  const [originals, setOriginals] = useState({}) // seeded state — DB value if set, else fallback
+  const [fromDb, setFromDb] = useState({})     // per key: did the seed come from Supabase or fallback?
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
@@ -35,8 +38,22 @@ export default function ContentByPage() {
     fetchContentByPage(page)
       .then((data) => {
         if (cancelled) return
+        const seed = {}
+        const isDb = {}
+        for (const r of data) {
+          const dbVal = r.value ?? ''
+          if (dbVal !== '') {
+            seed[r.key] = dbVal
+            isDb[r.key] = true
+          } else {
+            seed[r.key] = FALLBACKS[r.key] ?? ''
+            isDb[r.key] = false
+          }
+        }
         setRows(data)
-        setValues(Object.fromEntries(data.map((r) => [r.key, r.value ?? ''])))
+        setValues(seed)
+        setOriginals(seed)
+        setFromDb(isDb)
         setLoading(false)
       })
       .catch((e) => {
@@ -50,8 +67,8 @@ export default function ContentByPage() {
   }, [page])
 
   const dirty = useMemo(
-    () => rows.some((r) => (values[r.key] ?? '') !== (r.value ?? '')),
-    [rows, values],
+    () => rows.some((r) => (values[r.key] ?? '') !== (originals[r.key] ?? '')),
+    [rows, values, originals],
   )
 
   const save = async () => {
@@ -59,9 +76,18 @@ export default function ContentByPage() {
     setMessage('')
     try {
       const updates = rows
-        .filter((r) => (values[r.key] ?? '') !== (r.value ?? ''))
+        .filter((r) => (values[r.key] ?? '') !== (originals[r.key] ?? ''))
         .map((r) => ({ key: r.key, value: values[r.key] ?? '' }))
       await saveContentBatch(updates)
+      // Now the DB matches what the user just saw — promote everything
+      // in `values` into originals so dirty resets to false.
+      setOriginals(values)
+      // Any field we saved is now DB-backed.
+      setFromDb((prev) => {
+        const next = { ...prev }
+        for (const u of updates) next[u.key] = true
+        return next
+      })
       setRows((prev) =>
         prev.map((r) =>
           updates.find((u) => u.key === r.key) ? { ...r, value: values[r.key] ?? '' } : r,
@@ -77,7 +103,7 @@ export default function ContentByPage() {
   }
 
   const revert = () => {
-    setValues(Object.fromEntries(rows.map((r) => [r.key, r.value ?? ''])))
+    setValues(originals)
     setMessage('Reverted local changes.')
     setTimeout(() => setMessage(''), 2000)
   }
@@ -112,6 +138,8 @@ export default function ContentByPage() {
             key={row.key}
             row={row}
             value={values[row.key] ?? ''}
+            isDefault={!fromDb[row.key]}
+            isDirty={(values[row.key] ?? '') !== (originals[row.key] ?? '')}
             onChange={(v) => setValues((prev) => ({ ...prev, [row.key]: v }))}
             onOpenPicker={() => setPickerFor(row.key)}
           />
@@ -134,22 +162,64 @@ export default function ContentByPage() {
   )
 }
 
-function Field({ row, value, onChange, onOpenPicker }) {
-  const wrap = { display: 'flex', flexDirection: 'column', gap: 6, background: 'var(--ink-2)', border: '1px solid var(--line)', borderRadius: 12, padding: '16px 18px' }
+function Field({ row, value, isDefault, isDirty, onChange, onOpenPicker }) {
+  const wrap = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 6,
+    background: 'var(--ink-2)',
+    border: `1px solid ${isDirty ? 'rgba(200, 241, 58, 0.35)' : 'var(--line)'}`,
+    borderRadius: 12,
+    padding: '16px 18px',
+  }
   const label = { fontSize: 13, color: 'var(--cream)' }
   const helper = { fontSize: 11.5, color: 'var(--cream-dim)' }
   const keyStyle = { fontSize: 10.5, color: 'var(--cream-dim)', fontFamily: 'monospace', letterSpacing: '0.02em' }
 
   return (
     <div style={wrap}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-        <div style={label}>{row.label}</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+          <div style={label}>{row.label}</div>
+          {isDefault && (
+            <span style={tagDefault} title="Coming from the hardcoded default — save to write your own value into the database.">
+              Showing default
+            </span>
+          )}
+          {isDirty && (
+            <span style={tagDirty} title="Unsaved change.">
+              Unsaved
+            </span>
+          )}
+        </div>
         <div style={keyStyle}>{row.key}</div>
       </div>
       {row.helper && <div style={helper}>{row.helper}</div>}
       {renderInput(row.field_kind, row.key, value, onChange, onOpenPicker)}
     </div>
   )
+}
+
+const tagDefault = {
+  fontSize: 9.5,
+  letterSpacing: '0.14em',
+  textTransform: 'uppercase',
+  fontWeight: 700,
+  color: 'var(--cream-dim)',
+  background: 'rgba(245, 240, 228, 0.06)',
+  border: '1px solid var(--line)',
+  padding: '2px 8px',
+  borderRadius: 999,
+}
+const tagDirty = {
+  fontSize: 9.5,
+  letterSpacing: '0.14em',
+  textTransform: 'uppercase',
+  fontWeight: 700,
+  color: '#0e0f0c',
+  background: 'var(--lime)',
+  padding: '2px 8px',
+  borderRadius: 999,
 }
 
 function renderInput(kind, key, value, onChange, onOpenPicker) {
