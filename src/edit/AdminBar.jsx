@@ -4,7 +4,7 @@
 // content route + a "Hide" pill for guest-facing screen recordings.
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { LogOut, Pencil, PencilOff, LayoutGrid, EyeOff } from 'lucide-react'
+import { LogOut, Pencil, Check, LayoutGrid, EyeOff } from 'lucide-react'
 import { supabase } from '../lib/supabase.js'
 import { useEditMode } from './EditModeProvider.jsx'
 
@@ -133,7 +133,7 @@ export default function AdminBar() {
             border: editMode ? 'none' : '1px solid var(--line)',
           }}
         >
-          {editMode ? <PencilOff size={12} /> : <Pencil size={12} />}
+          {editMode ? <Check size={12} /> : <Pencil size={12} />}
           {editMode ? 'Editing — click to stop' : 'Edit on page'}
         </button>
         <Link to={t.href} style={{ ...pill, background: 'var(--lime)', color: '#0e0f0c', textDecoration: 'none' }}>
