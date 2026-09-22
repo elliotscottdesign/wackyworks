@@ -23,14 +23,30 @@ export async function fetchAllContent() {
   return data || []
 }
 
-export async function saveContentValue(key, value) {
+export async function saveContentValue(key, value, fieldKind) {
   if (!supabase) throw new Error('Supabase client not configured')
-  const { error } = await supabase
+  // Try update first (avoids overwriting label/helper/sort_order on
+  // seeded rows). If no row exists yet, upsert one with a sensible
+  // default so a rogue key doesn't silently no-op the save.
+  const { data, error } = await supabase
     .from('page_content')
     .update({ value: value ?? '' })
     .eq('key', key)
+    .select('key')
   if (error) throw error
-  // Tell any live-rendering ContentProvider to re-fetch.
+  if (!data || data.length === 0) {
+    // Row didn't exist — insert it. Page inferred from the key prefix
+    // ("home.hero.headline_1" → "home").
+    const page = key.split('.')[0] || 'misc'
+    const { error: insErr } = await supabase.from('page_content').insert({
+      key,
+      value: value ?? '',
+      page,
+      field_kind: fieldKind || 'text',
+      label: key,
+    })
+    if (insErr) throw insErr
+  }
   window.dispatchEvent(new CustomEvent('wackyworks:content-changed', { detail: { key } }))
 }
 

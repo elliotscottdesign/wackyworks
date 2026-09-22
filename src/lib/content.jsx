@@ -135,6 +135,21 @@ export function useContentImage() {
   return useCallback((key, fallback) => parseImageValue(c(key, fallback)), [c])
 }
 
+// Same as useContentImage but for a single key — the display object
+// resolved from Supabase (or fallback), ready for object-fit CSS.
+export function useImageDisplay(key, fallback) {
+  const c = useContent()
+  return parseImageValue(c(key, fallback))
+}
+
+// Optimistically patch the in-memory content map after an inline save
+// so the page re-renders with the new value without waiting for a
+// refetch round-trip.
+export function useApplyContentEdit() {
+  const { setLocal } = useContext(ContentContext)
+  return setLocal
+}
+
 // Access the raw context (used by the admin edit tooling).
 export function useContentContext() {
   return useContext(ContentContext)

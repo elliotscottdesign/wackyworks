@@ -10,7 +10,10 @@ import {
   PACKAGE_NOTES,
   PRICING_SHEET,
 } from './catalog'
-import { useContent, useContentImage, parseImageValue } from './lib/content.jsx'
+import { useContent, parseImageValue } from './lib/content.jsx'
+import Editable from './edit/Editable.jsx'
+import EditableImage from './edit/EditableImage.jsx'
+import AdminBar from './edit/AdminBar.jsx'
 
 // Fallback lookup so every reference-by-key resolves to a sensible
 // default even before anything has been saved through the admin.
@@ -77,6 +80,7 @@ export default function PublicSite() {
       <CTA />
       <Footer />
       {lightbox && <Lightbox src={lightbox} onClose={() => setLightbox(null)} />}
+      <AdminBar />
     </>
   )
 }
@@ -99,8 +103,10 @@ function Header() {
     >
       <div className="wrap" style={headerRow}>
         <div className="display" style={{ fontSize: 22, color: 'var(--lime)' }}>
-          {c('header.wordmark_1', F['header.wordmark_1'])}{' '}
-          <span style={{ color: 'var(--cream)' }}>{c('header.wordmark_2', F['header.wordmark_2'])}</span>
+          <Editable k="header.wordmark_1">{c('header.wordmark_1', F['header.wordmark_1'])}</Editable>{' '}
+          <span style={{ color: 'var(--cream)' }}>
+            <Editable k="header.wordmark_2">{c('header.wordmark_2', F['header.wordmark_2'])}</Editable>
+          </span>
         </div>
         <nav style={{ display: 'flex', gap: 22, alignItems: 'center' }}>
           <NavLink href="#obstacles">Obstacles</NavLink>
@@ -112,7 +118,7 @@ function Header() {
             style={{ fontSize: 13, color: 'var(--cream-dim)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}
           >
             <Mail size={14} />
-            {email}
+            <Editable k="header.email">{email}</Editable>
           </a>
         </nav>
       </div>
@@ -162,18 +168,20 @@ function Hero() {
     >
       <div className="wrap">
         <div className="eyebrow" style={{ marginBottom: 22 }}>
-          {c('hero.eyebrow', F['hero.eyebrow'])}
+          <Editable k="hero.eyebrow">{c('hero.eyebrow', F['hero.eyebrow'])}</Editable>
         </div>
         <h1 className="display" style={{ fontSize: 'clamp(48px, 9vw, 128px)', color: 'var(--cream)', marginBottom: 30, maxWidth: 1100 }}>
-          {c('hero.headline_1', F['hero.headline_1'])}
+          <Editable k="hero.headline_1">{c('hero.headline_1', F['hero.headline_1'])}</Editable>
           <br />
-          <span style={{ color: 'var(--lime)' }}>{c('hero.headline_2', F['hero.headline_2'])}</span>
+          <span style={{ color: 'var(--lime)' }}>
+            <Editable k="hero.headline_2">{c('hero.headline_2', F['hero.headline_2'])}</Editable>
+          </span>
         </h1>
         <p style={{ fontSize: 18, color: 'var(--cream-dim)', maxWidth: 660, marginBottom: 34, whiteSpace: 'pre-line' }}>
-          {c('hero.subhead', F['hero.subhead'])}
+          <Editable k="hero.subhead" multiline>{c('hero.subhead', F['hero.subhead'])}</Editable>
         </p>
         <a href={`mailto:${email}?subject=Adventure%20Golf%20Enquiry`} style={ctaBtn}>
-          {c('hero.cta_label', F['hero.cta_label'])} <ArrowUpRight size={16} />
+          <Editable k="hero.cta_label">{c('hero.cta_label', F['hero.cta_label'])}</Editable> <ArrowUpRight size={16} />
         </a>
       </div>
     </section>
@@ -199,32 +207,32 @@ const ctaBtn = {
 
 function TheCraft({ onImage }) {
   const c = useContent()
-  const img = useContentImage()
-  const layout = img('craft.layout_image', F['craft.layout_image']).src || F['craft.layout_image']
+  const rawLayout = c('craft.layout_image', F['craft.layout_image'])
+  const layoutD = parseImg(rawLayout)
   const body = c('craft.body', F['craft.body'])
   return (
     <section style={{ padding: '90px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 40, alignItems: 'center' }}>
         <div>
           <div className="eyebrow" style={{ marginBottom: 14 }}>
-            {c('craft.eyebrow', F['craft.eyebrow'])}
+            <Editable k="craft.eyebrow">{c('craft.eyebrow', F['craft.eyebrow'])}</Editable>
           </div>
           <div style={{ marginBottom: 24 }}>
             <div className="display" style={{ fontSize: 'clamp(52px, 6vw, 84px)', color: 'var(--lime)' }}>
-              {c('craft.stat', F['craft.stat'])}
+              <Editable k="craft.stat">{c('craft.stat', F['craft.stat'])}</Editable>
             </div>
             <div style={{ fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--cream-dim)', marginTop: 6 }}>
-              {c('craft.stat_label', F['craft.stat_label'])}
+              <Editable k="craft.stat_label">{c('craft.stat_label', F['craft.stat_label'])}</Editable>
             </div>
           </div>
-          {body.split('\n\n').map((p, i) => (
-            <p key={i} style={{ color: 'var(--cream)', opacity: 0.9, marginBottom: 14, fontSize: 15.5 }}>
-              {p}
-            </p>
-          ))}
+          <div style={{ color: 'var(--cream)', opacity: 0.9, fontSize: 15.5, whiteSpace: 'pre-line' }}>
+            <Editable k="craft.body" multiline>{body}</Editable>
+          </div>
         </div>
-        <figure onClick={() => onImage(layout)} style={{ cursor: 'zoom-in', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)' }}>
-          <img src={layout} alt="Layout ideas" style={{ width: '100%' }} />
+        <figure onClick={() => onImage(layoutD.src)} style={{ cursor: 'zoom-in', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)' }}>
+          <EditableImage k="craft.layout_image" aspect="4/3" currentValue={rawLayout}>
+            <img src={layoutD.src} alt="Layout ideas" style={{ width: '100%', display: 'block' }} />
+          </EditableImage>
         </figure>
       </div>
     </section>
@@ -239,18 +247,15 @@ function Obstacles({ onImage }) {
     <section id="obstacles" style={{ padding: '90px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
         <SectionHead
-          eyebrow={c('obstacles.eyebrow', F['obstacles.eyebrow'])}
-          title={c('obstacles.title', F['obstacles.title'])}
-          intro={c('obstacles.intro', F['obstacles.intro'])}
+          eyebrowKey="obstacles.eyebrow"
+          titleKey="obstacles.title"
+          introKey="obstacles.intro"
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 20 }}>
           {OBSTACLES.map((o, i) => {
             const n = i + 1
-            const name = c(`obstacles.item_${n}.name`, o.name)
-            const size = c(`obstacles.item_${n}.size`, o.size)
-            const image = c(`obstacles.item_${n}.image`, o.img)
-            const blurb = c(`obstacles.item_${n}.blurb`, o.blurb)
-            const d = parseImg(image)
+            const rawImg = c(`obstacles.item_${n}.image`, o.img)
+            const d = parseImg(rawImg)
             return (
               <button
                 key={n}
@@ -259,14 +264,22 @@ function Obstacles({ onImage }) {
                 style={{ textAlign: 'left', padding: 0, background: 'var(--ink-2)', color: 'inherit' }}
               >
                 <div style={{ aspectRatio: '4 / 3', overflow: 'hidden', background: 'var(--ink-3)' }}>
-                  <img src={d.src} alt={name} style={imgStyle(d)} />
+                  <EditableImage k={`obstacles.item_${n}.image`} aspect="4/3" currentValue={rawImg}>
+                    <img src={d.src} alt="" style={imgStyle(d)} />
+                  </EditableImage>
                 </div>
                 <div style={{ padding: '18px 20px' }}>
                   <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, marginBottom: 8 }}>
-                    <h3 className="display" style={{ fontSize: 20, color: 'var(--cream)' }}>{name}</h3>
-                    <span style={{ fontSize: 11, color: 'var(--lime)', letterSpacing: '0.1em' }}>{size}</span>
+                    <h3 className="display" style={{ fontSize: 20, color: 'var(--cream)' }}>
+                      <Editable k={`obstacles.item_${n}.name`}>{c(`obstacles.item_${n}.name`, o.name)}</Editable>
+                    </h3>
+                    <span style={{ fontSize: 11, color: 'var(--lime)', letterSpacing: '0.1em' }}>
+                      <Editable k={`obstacles.item_${n}.size`}>{c(`obstacles.item_${n}.size`, o.size)}</Editable>
+                    </span>
                   </div>
-                  <p style={{ fontSize: 13.5, color: 'var(--cream-dim)', lineHeight: 1.55 }}>{blurb}</p>
+                  <p style={{ fontSize: 13.5, color: 'var(--cream-dim)', lineHeight: 1.55 }}>
+                    <Editable k={`obstacles.item_${n}.blurb`} multiline>{c(`obstacles.item_${n}.blurb`, o.blurb)}</Editable>
+                  </p>
                 </div>
               </button>
             )
@@ -285,43 +298,51 @@ function Finishes({ onImage }) {
     <section id="finishes" style={{ padding: '90px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
         <SectionHead
-          eyebrow={c('finishes.eyebrow', F['finishes.eyebrow'])}
-          title={c('finishes.title', F['finishes.title'])}
-          intro={c('finishes.intro', F['finishes.intro'])}
+          eyebrowKey="finishes.eyebrow"
+          titleKey="finishes.title"
+          introKey="finishes.intro"
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
           {FINISHES.map((f, i) => {
             const n = i + 1
-            const name = c(`finishes.item_${n}.name`, f.name)
-            const d = parseImg(c(`finishes.item_${n}.image`, f.img))
-            const tagline = c(`finishes.item_${n}.tagline`, f.tagline)
-            const price = c(`finishes.item_${n}.price`, f.price)
-            const includes = c(`finishes.item_${n}.includes`, f.includes.join('\n'))
-              .split('\n')
-              .map((s) => s.trim())
-              .filter(Boolean)
+            const rawImg = c(`finishes.item_${n}.image`, f.img)
+            const d = parseImg(rawImg)
+            const includesRaw = c(`finishes.item_${n}.includes`, f.includes.join('\n'))
+            const includes = includesRaw.split('\n').map((s) => s.trim()).filter(Boolean)
             return (
               <div key={n} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
                 <button onClick={() => onImage(d.src)} style={{ padding: 0, background: 'transparent', textAlign: 'left', width: '100%' }}>
                   <div style={{ aspectRatio: '5 / 4', overflow: 'hidden' }}>
-                    <img src={d.src} alt={name} style={imgStyle(d)} />
+                    <EditableImage k={`finishes.item_${n}.image`} aspect="5/4" currentValue={rawImg}>
+                      <img src={d.src} alt="" style={imgStyle(d)} />
+                    </EditableImage>
                   </div>
                 </button>
                 <div style={{ padding: '20px 22px 24px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
                   <div>
-                    <h3 className="display" style={{ fontSize: 24, color: 'var(--cream)' }}>{name}</h3>
-                    <p style={{ fontSize: 14, color: 'var(--lime)', fontStyle: 'italic', marginTop: 4 }}>{tagline}</p>
+                    <h3 className="display" style={{ fontSize: 24, color: 'var(--cream)' }}>
+                      <Editable k={`finishes.item_${n}.name`}>{c(`finishes.item_${n}.name`, f.name)}</Editable>
+                    </h3>
+                    <p style={{ fontSize: 14, color: 'var(--lime)', fontStyle: 'italic', marginTop: 4 }}>
+                      <Editable k={`finishes.item_${n}.tagline`}>{c(`finishes.item_${n}.tagline`, f.tagline)}</Editable>
+                    </p>
                   </div>
-                  <ul style={{ listStyle: 'none', display: 'grid', gap: 8, margin: '4px 0' }}>
-                    {includes.map((inc) => (
-                      <li key={inc} style={{ display: 'flex', gap: 10, fontSize: 13.5, color: 'var(--cream-dim)' }}>
-                        <Check size={16} style={{ color: 'var(--lime)', flexShrink: 0, marginTop: 2 }} />
-                        <span>{inc}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div style={{ display: 'block' }}>
+                    <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--cream-dim)', marginBottom: 6 }}>Includes</div>
+                    <div style={{ display: 'grid', gap: 8 }}>
+                      {includes.map((inc, ii) => (
+                        <div key={ii} style={{ display: 'flex', gap: 10, fontSize: 13.5, color: 'var(--cream-dim)' }}>
+                          <Check size={16} style={{ color: 'var(--lime)', flexShrink: 0, marginTop: 2 }} />
+                          <span>{inc}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ fontSize: 10.5, color: 'var(--cream-dim)', marginTop: 8, fontStyle: 'italic' }}>
+                      (Edit the whole bullet list on the Finishes admin page — one bullet per line.)
+                    </div>
+                  </div>
                   <div style={{ marginTop: 'auto', paddingTop: 12, borderTop: '1px solid var(--line)', fontSize: 13, color: 'var(--cream-dim)' }}>
-                    {price}
+                    <Editable k={`finishes.item_${n}.price`}>{c(`finishes.item_${n}.price`, f.price)}</Editable>
                   </div>
                 </div>
               </div>
@@ -341,24 +362,29 @@ function Services({ onImage }) {
     <section id="services" style={{ padding: '90px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
         <SectionHead
-          eyebrow={c('services.eyebrow', F['services.eyebrow'])}
-          title={c('services.title', F['services.title'])}
-          intro={c('services.intro', F['services.intro'])}
+          eyebrowKey="services.eyebrow"
+          titleKey="services.title"
+          introKey="services.intro"
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
           {SERVICES.map((s, i) => {
             const n = i + 1
-            const name = c(`services.item_${n}.name`, s.name)
-            const d = parseImg(c(`services.item_${n}.image`, s.img))
-            const detail = c(`services.item_${n}.detail`, s.detail)
+            const rawImg = c(`services.item_${n}.image`, s.img)
+            const d = parseImg(rawImg)
             return (
               <button key={n} onClick={() => onImage(d.src)} className="card" style={{ textAlign: 'left', padding: 0, background: 'var(--ink-2)', color: 'inherit' }}>
                 <div style={{ aspectRatio: '5 / 4', overflow: 'hidden' }}>
-                  <img src={d.src} alt={name} style={imgStyle(d)} />
+                  <EditableImage k={`services.item_${n}.image`} aspect="5/4" currentValue={rawImg}>
+                    <img src={d.src} alt="" style={imgStyle(d)} />
+                  </EditableImage>
                 </div>
                 <div style={{ padding: '18px 20px' }}>
-                  <h3 className="display" style={{ fontSize: 20, color: 'var(--cream)', marginBottom: 8 }}>{name}</h3>
-                  <p style={{ fontSize: 13.5, color: 'var(--cream-dim)', lineHeight: 1.55 }}>{detail}</p>
+                  <h3 className="display" style={{ fontSize: 20, color: 'var(--cream)', marginBottom: 8 }}>
+                    <Editable k={`services.item_${n}.name`}>{c(`services.item_${n}.name`, s.name)}</Editable>
+                  </h3>
+                  <p style={{ fontSize: 13.5, color: 'var(--cream-dim)', lineHeight: 1.55 }}>
+                    <Editable k={`services.item_${n}.detail`} multiline>{c(`services.item_${n}.detail`, s.detail)}</Editable>
+                  </p>
                 </div>
               </button>
             )
@@ -374,84 +400,93 @@ function Services({ onImage }) {
 function Packages({ onImage }) {
   const c = useContent()
   const notes = c('packages.notes', F['packages.notes']).split('\n').filter(Boolean)
-  const refD = parseImg(c('packages.reference_sheet', F['packages.reference_sheet']))
+  const rawRef = c('packages.reference_sheet', F['packages.reference_sheet'])
+  const refD = parseImg(rawRef)
   return (
     <section id="packages" style={{ padding: '90px 0', borderBottom: '1px solid var(--line)' }}>
       <div className="wrap">
         <SectionHead
-          eyebrow={c('packages.eyebrow', F['packages.eyebrow'])}
-          title={c('packages.title', F['packages.title'])}
-          intro={c('packages.intro', F['packages.intro'])}
+          eyebrowKey="packages.eyebrow"
+          titleKey="packages.title"
+          introKey="packages.intro"
         />
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, marginBottom: 22 }}>
           {PACKAGES.map((pkg, i) => {
             const n = i + 1
-            const name = c(`packages.item_${n}.name`, pkg.name)
-            const total = c(`packages.item_${n}.total`, pkg.total)
-            const rawLines = c(`packages.item_${n}.lines`, pkg.lines.map((l) => `${l.item} | ${l.amount}`).join('\n'))
-            const lines = rawLines.split('\n')
+            const linesRaw = c(`packages.item_${n}.lines`, pkg.lines.map((l) => `${l.item} | ${l.amount}`).join('\n'))
+            const lines = linesRaw.split('\n')
               .map((line) => line.trim())
               .filter(Boolean)
               .map((line) => {
                 const [item, amount] = line.split('|').map((s) => (s || '').trim())
                 return { item: item || '', amount: amount || '' }
               })
-            return <PackageCard key={n} pkg={{ ...pkg, name, total, lines }} />
+            const accent = pkg.tone === 'accent'
+            const premium = pkg.tone === 'premium'
+            return (
+              <div
+                key={n}
+                className="card"
+                style={{
+                  padding: '24px 22px 22px',
+                  background: accent ? 'rgba(200, 241, 58, 0.06)' : premium ? 'rgba(255, 106, 61, 0.06)' : 'var(--ink-2)',
+                  borderColor: accent ? 'rgba(200, 241, 58, 0.35)' : premium ? 'rgba(255, 106, 61, 0.35)' : 'var(--line)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 16,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: premium ? 'var(--coral)' : 'var(--lime)' }}>
+                    Package
+                  </div>
+                  <h3 className="display" style={{ fontSize: 22, color: 'var(--cream)', marginTop: 6 }}>
+                    <Editable k={`packages.item_${n}.name`}>{c(`packages.item_${n}.name`, pkg.name)}</Editable>
+                  </h3>
+                </div>
+                <div>
+                  <div className="display" style={{ fontSize: 44, color: 'var(--cream)', lineHeight: 1 }}>
+                    <Editable k={`packages.item_${n}.total`}>{c(`packages.item_${n}.total`, pkg.total)}</Editable>
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--cream-dim)', marginTop: 4 }}>+ VAT · turn-key</div>
+                </div>
+                <ul style={{ listStyle: 'none', display: 'grid', gap: 8, paddingTop: 6, borderTop: '1px solid var(--line)' }}>
+                  {lines.map((l, li) => (
+                    <li key={li} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13.5 }}>
+                      <span style={{ color: 'var(--cream-dim)' }}>{l.item}</span>
+                      <span style={{ color: 'var(--cream)' }}>{l.amount}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div style={{ fontSize: 10.5, color: 'var(--cream-dim)', fontStyle: 'italic' }}>
+                  (Edit line items on the Packages admin page — one per line, format "Description | Amount".)
+                </div>
+              </div>
+            )
           })}
         </div>
-        <ul style={{ listStyle: 'none', display: 'grid', gap: 8, marginBottom: 24 }}>
-          {notes.map((note) => (
-            <li key={note} style={{ display: 'flex', gap: 10, fontSize: 13.5, color: 'var(--cream-dim)' }}>
-              <span style={{ color: 'var(--lime)' }}>◆</span>
-              {note}
-            </li>
-          ))}
-        </ul>
+        <div style={{ display: 'grid', gap: 8, marginBottom: 24, color: 'var(--cream-dim)', fontSize: 13.5 }}>
+          <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--cream-dim)' }}>Notes</div>
+          <Editable k="packages.notes" multiline>{c('packages.notes', F['packages.notes'])}</Editable>
+          <div style={{ display: 'grid', gap: 6, marginTop: 4 }}>
+            {notes.map((note, i) => (
+              <div key={i} style={{ display: 'flex', gap: 10, fontSize: 13.5 }}>
+                <span style={{ color: 'var(--lime)' }}>◆</span>
+                <span>{note}</span>
+              </div>
+            ))}
+          </div>
+        </div>
         <figure onClick={() => onImage(refD.src)} style={{ cursor: 'zoom-in', borderRadius: 14, overflow: 'hidden', border: '1px solid var(--line)' }}>
-          <img src={refD.src} alt="Full pricing sheet" style={{ width: '100%' }} />
+          <EditableImage k="packages.reference_sheet" aspect="16/9" currentValue={rawRef}>
+            <img src={refD.src} alt="Full pricing sheet" style={{ width: '100%', display: 'block' }} />
+          </EditableImage>
           <figcaption style={{ padding: '12px 16px', fontSize: 12, color: 'var(--cream-dim)' }}>
             Full pricing sheet (from the catalogue).
           </figcaption>
         </figure>
       </div>
     </section>
-  )
-}
-
-function PackageCard({ pkg }) {
-  const accent = pkg.tone === 'accent'
-  const premium = pkg.tone === 'premium'
-  return (
-    <div
-      className="card"
-      style={{
-        padding: '24px 22px 22px',
-        background: accent ? 'rgba(200, 241, 58, 0.06)' : premium ? 'rgba(255, 106, 61, 0.06)' : 'var(--ink-2)',
-        borderColor: accent ? 'rgba(200, 241, 58, 0.35)' : premium ? 'rgba(255, 106, 61, 0.35)' : 'var(--line)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
-      }}
-    >
-      <div>
-        <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: premium ? 'var(--coral)' : 'var(--lime)' }}>
-          Package
-        </div>
-        <h3 className="display" style={{ fontSize: 22, color: 'var(--cream)', marginTop: 6 }}>{pkg.name}</h3>
-      </div>
-      <div>
-        <div className="display" style={{ fontSize: 44, color: 'var(--cream)', lineHeight: 1 }}>{pkg.total}</div>
-        <div style={{ fontSize: 12, color: 'var(--cream-dim)', marginTop: 4 }}>+ VAT · turn-key</div>
-      </div>
-      <ul style={{ listStyle: 'none', display: 'grid', gap: 8, paddingTop: 6, borderTop: '1px solid var(--line)' }}>
-        {pkg.lines.map((l) => (
-          <li key={l.item} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13.5 }}>
-            <span style={{ color: 'var(--cream-dim)' }}>{l.item}</span>
-            <span style={{ color: 'var(--cream)' }}>{l.amount}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
   )
 }
 
@@ -464,13 +499,16 @@ function CTA() {
     <section style={{ padding: '80px 0', textAlign: 'center' }}>
       <div className="wrap">
         <div className="eyebrow" style={{ marginBottom: 18 }}>
-          {c('cta.eyebrow', F['cta.eyebrow'])}
+          <Editable k="cta.eyebrow">{c('cta.eyebrow', F['cta.eyebrow'])}</Editable>
         </div>
         <h2 className="display" style={{ fontSize: 'clamp(36px, 6vw, 64px)', color: 'var(--cream)', marginBottom: 14 }}>
-          {c('cta.headline_1', F['cta.headline_1'])} <span style={{ color: 'var(--lime)' }}>{c('cta.headline_2', F['cta.headline_2'])}</span>
+          <Editable k="cta.headline_1">{c('cta.headline_1', F['cta.headline_1'])}</Editable>{' '}
+          <span style={{ color: 'var(--lime)' }}>
+            <Editable k="cta.headline_2">{c('cta.headline_2', F['cta.headline_2'])}</Editable>
+          </span>
         </h2>
         <p style={{ fontSize: 16, color: 'var(--cream-dim)', maxWidth: 560, margin: '0 auto 28px' }}>
-          {c('cta.body', F['cta.body'])}
+          <Editable k="cta.body" multiline>{c('cta.body', F['cta.body'])}</Editable>
         </p>
         <a href={`mailto:${email}?subject=Adventure%20Golf%20Enquiry`} style={ctaBtn}>
           Email {email} <ArrowUpRight size={16} />
@@ -515,13 +553,15 @@ function Footer() {
     <footer style={{ borderTop: '1px solid var(--line)', padding: '40px 0 32px' }}>
       <div className="wrap" style={{ display: 'flex', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
         <div className="display" style={{ fontSize: 22, color: 'var(--lime)' }}>
-          {c('header.wordmark_1', F['header.wordmark_1'])}{' '}
-          <span style={{ color: 'var(--cream)' }}>{c('header.wordmark_2', F['header.wordmark_2'])}</span>
+          <Editable k="header.wordmark_1">{c('header.wordmark_1', F['header.wordmark_1'])}</Editable>{' '}
+          <span style={{ color: 'var(--cream)' }}>
+            <Editable k="header.wordmark_2">{c('header.wordmark_2', F['header.wordmark_2'])}</Editable>
+          </span>
         </div>
         <div style={{ display: 'flex', gap: 30, fontSize: 13, color: 'var(--cream-dim)', flexWrap: 'wrap' }}>
           <a href={`mailto:${email}`} style={{ textDecoration: 'none' }}>{email}</a>
-          <span>{c('footer.address', F['footer.address'])}</span>
-          <span>© {new Date().getFullYear()} {c('footer.company', F['footer.company'])}</span>
+          <span><Editable k="footer.address">{c('footer.address', F['footer.address'])}</Editable></span>
+          <span>© {new Date().getFullYear()} <Editable k="footer.company">{c('footer.company', F['footer.company'])}</Editable></span>
         </div>
       </div>
     </footer>
@@ -530,27 +570,27 @@ function Footer() {
 
 // ────────── shared ──────────
 
-function SectionHead({ eyebrow, title, intro }) {
+function SectionHead({ eyebrowKey, titleKey, introKey }) {
+  const c = useContent()
   return (
     <div style={{ marginBottom: 34, maxWidth: 720 }}>
-      <div className="eyebrow" style={{ marginBottom: 10 }}>{eyebrow}</div>
-      <h2 className="display" style={{ fontSize: 'clamp(32px, 5vw, 52px)', color: 'var(--cream)', marginBottom: 12 }}>{title}</h2>
-      <p style={{ color: 'var(--cream-dim)', fontSize: 15.5 }}>{intro}</p>
+      <div className="eyebrow" style={{ marginBottom: 10 }}>
+        <Editable k={eyebrowKey}>{c(eyebrowKey, F[eyebrowKey])}</Editable>
+      </div>
+      <h2 className="display" style={{ fontSize: 'clamp(32px, 5vw, 52px)', color: 'var(--cream)', marginBottom: 12 }}>
+        <Editable k={titleKey}>{c(titleKey, F[titleKey])}</Editable>
+      </h2>
+      <p style={{ color: 'var(--cream-dim)', fontSize: 15.5 }}>
+        <Editable k={introKey} multiline>{c(introKey, F[introKey])}</Editable>
+      </p>
     </div>
   )
 }
 
-// Image values in page_content can be either a plain URL string or
-// a JSON blob {src, fit, x, y, zoom}. parseImg returns the full
-// display object; parseImgSrc extracts just the URL for the
-// lightbox (which ignores crop/zoom).
+// Image display helpers — parse the JSON blob and apply crop.
 function parseImg(v) {
   return parseImageValue(v)
 }
-function parseImgSrc(v) {
-  return parseImg(v).src
-}
-// Style object to apply the stored crop/zoom to an <img> element.
 function imgStyle(d) {
   return {
     width: '100%',
