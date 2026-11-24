@@ -23,8 +23,11 @@ const TABS = [
   { id: 'costs', label: 'Costs' },
 ]
 
-export default function Presentation() {
-  const { slug } = useParams()
+export default function Presentation({ slug: slugProp }) {
+  const params = useParams()
+  // Allow routes like /livenation to pass slug as a prop; routes like
+  // /present/:slug use the URL param.
+  const slug = slugProp || params.slug
   const fallback = getPresentation(slug)
   const c = useContent()
   const { canEdit } = useEditMode()

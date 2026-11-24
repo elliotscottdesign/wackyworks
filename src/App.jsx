@@ -14,6 +14,8 @@ export default function App() {
       <Route path="/" element={<PublicSite />} />
       <Route path="/start-a-project" element={<StartProject />} />
       <Route path="/present/:slug" element={<Presentation />} />
+      {/* Clean per-client shortcut: wackyworks.co.uk/livenation */}
+      <Route path="/livenation" element={<Presentation slug="live-nation" />} />
       <Route
         path="/admin"
         element={
