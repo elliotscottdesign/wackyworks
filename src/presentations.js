@@ -66,7 +66,7 @@ This pack walks through the nine themed holes, how it ships and installs, and th
         {
           n: 6,
           name: 'London Eye',
-          image: borough('294A8725_web.jpg'),
+          image: borough('294A8741_web.jpg'),
           copy: 'Players putt around a 1.2m-tall London Eye-themed loop. Hit it with enough power and the ball rolls around a Southbank skatepark-themed ramp down to the finishing hole.',
         },
         {
