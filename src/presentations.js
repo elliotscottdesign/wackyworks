@@ -241,13 +241,14 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
         },
         {
           name: 'Full Redux · Stored · Installed',
-          total: '£42k',
+          total: '£47k',
           blurb:
             'Full workshop redux, stored by Plonk through to summer, then installed and delivered to a London venue of your choice, ready for events.',
           lines: [
             { item: 'Course (upfront)', amount: '£15k' },
             { item: 'Continued storage', amount: '£7k' },
             { item: 'Redux', amount: '£10k' },
+            { item: 'Handling + workshop time', amount: '£5k' },
             { item: 'Install (London)', amount: '£5k' },
             { item: 'Delivery (London)', amount: '£5k' },
           ],
