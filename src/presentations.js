@@ -4,9 +4,9 @@
 // present/<slug> with the access code.
 
 const borough = (f) => `/present/live-nation/${f}`
-// Left-column crops of the catalogue pages, copy + 3D isometric
-// render only, with the themed install photos trimmed off.
-const hole = (n) => `/present/holes/hole-page-${String(n).padStart(2, '0')}.jpg`
+// Live Nation 3D renders — clean mint-stripped PNGs from the Borough
+// 3d renders folder, numbered 1..9 to match the hole order.
+const hole = (n) => `/present/holes/hole-${String(n).padStart(2, '0')}.jpg`
 
 export const PRESENTATIONS = {
   'live-nation': {
@@ -99,63 +99,63 @@ This pack walks through the nine themed holes, how it ships and installs, and th
           n: 1,
           catalogueTitle: 'Loop da Loop',
           name: 'Mini loop + mini hill',
-          image: hole(16),
+          image: hole(1),
           copy: 'A compact combo opener: a scaled-down loop paired with a mini hill. Perhaps the most beloved of all our obstacles, gravity-defying but unforgiving if you swing too hard.',
         },
         {
           n: 2,
           catalogueTitle: 'Jump & Target',
           name: 'Jump & catcher',
-          image: hole(11),
+          image: hole(2),
           copy: 'Power and accuracy both matter. Players launch the ball off a ramp and aim to land it in a catcher, the ball then rolls out to the hole. Miss the catcher and it’s a putt on the greens to finish.',
         },
         {
           n: 3,
           catalogueTitle: '½ Pipe',
           name: '½ pipe',
-          image: hole(8),
+          image: hole(3),
           copy: 'Players have to swoop the ball across two opposing ramps. Playing the angles is critical, misjudge it and the ball rests in a trap space, back at the start.',
         },
         {
           n: 4,
           catalogueTitle: 'Balancing Beam',
           name: 'Long beam',
-          image: hole(9),
+          image: hole(4),
           copy: 'A 3-metre balancing beam. Players hit up the beam and over small bumpers to the hole. Side bumpers and thick grass make the fairway harder to recover from if the ball drops off the beam.',
         },
         {
           n: 5,
           catalogueTitle: 'Shooter Games',
           name: 'Shooter deck game',
-          image: hole(17),
+          image: hole(5),
           copy: 'Hit the ball up a ramp to load the game, then use the club like a pool cue on the deck targets to score bonuses and continue. A unique gameplay piece that can be themed to match.',
         },
         {
           n: 6,
           catalogueTitle: 'Loop da Loop',
           name: 'Big loop + ramp',
-          image: hole(16),
+          image: hole(6),
           copy: 'The signature obstacle, sized up: a big loop paired with a lead-in ramp. Watch your speed as well as your angle, too much power and the ball flies right out the other side.',
         },
         {
           n: 7,
           catalogueTitle: 'Big Ramp & Ball Runs',
           name: 'Big ramp + ball runs',
-          image: hole(18),
+          image: hole(7),
           copy: 'Hit the ball to the top of a big ramp, it then gutters down a randomising ball run. Depending where the ball comes out the player may get a hole in 1, or have to putt to finish. Layout variations fit the space.',
         },
         {
           n: 8,
           catalogueTitle: 'Big Ramps',
           name: 'Big ramps',
-          image: hole(10),
+          image: hole(8),
           copy: 'A fun way to start, or close, a sequence. What looks like a simple shot gets tricky fast: players have to learn to use the bumpers to find the right angle into the central trough. Variations add bonus targets and ball traps.',
         },
         {
           n: 9,
           catalogueTitle: 'Skeeball',
           name: 'Skeeball',
-          image: hole(15),
+          image: hole(9),
           copy: 'Based on the classic arcade game. Players take a shot up a ramp and aim for specific targets to score bonus points. Used as the last hole, it catches and stores the balls, and can double as a promotional / marketing piece.',
         },
       ],
@@ -229,12 +229,13 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
         },
         {
           name: 'Workshop Redux',
-          total: '£30k',
+          total: '£35k',
           blurb:
             'Plonk takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint, it stays a second-hand course, but visibly refreshed.',
           lines: [
             { item: 'Course', amount: '£15k' },
             { item: 'Redux (repaint + clean)', amount: '£10k' },
+            { item: 'Handling + workshop time', amount: '£5k' },
             { item: 'Container delivery', amount: '£5k' },
           ],
         },
