@@ -582,66 +582,69 @@ function ScaleTab({ slug, fallback, onImage }) {
         titleKey={`present.${slug}.scale.headline`}
         titleFallback={fallback.scale.headline}
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 28, alignItems: 'start' }}>
-        <div>
-          <Editable k={`present.${slug}.scale.body`} multiline>
-            <div style={{ whiteSpace: 'pre-wrap', color: 'var(--cream)', opacity: 0.9, fontSize: 15.5, lineHeight: 1.6 }}>
-              {c(`present.${slug}.scale.body`, fallback.scale.body)}
-            </div>
-          </Editable>
-        </div>
-        <div style={{ display: 'grid', gap: 18 }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: '10px 16px',
-              borderRadius: 999,
-              border: '1px solid rgba(200, 241, 58, 0.35)',
-              background: 'rgba(200, 241, 58, 0.06)',
-              color: 'var(--lime)',
-              fontSize: 13,
-              fontWeight: 700,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              width: 'fit-content',
-            }}
-          >
-            Footprint ·{' '}
-            <Editable k={`present.${slug}.scale.dimensions`}>
-              {c(`present.${slug}.scale.dimensions`, fallback.scale.dimensions || '')}
-            </Editable>
+      {/* Copy sits full-width on top. */}
+      <div style={{ maxWidth: 820, marginBottom: 28 }}>
+        <Editable k={`present.${slug}.scale.body`} multiline>
+          <div style={{ whiteSpace: 'pre-wrap', color: 'var(--cream)', opacity: 0.9, fontSize: 15.5, lineHeight: 1.6 }}>
+            {c(`present.${slug}.scale.body`, fallback.scale.body)}
           </div>
+        </Editable>
+      </div>
+
+      <div
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 10,
+          padding: '10px 16px',
+          borderRadius: 999,
+          border: '1px solid rgba(200, 241, 58, 0.35)',
+          background: 'rgba(200, 241, 58, 0.06)',
+          color: 'var(--lime)',
+          fontSize: 13,
+          fontWeight: 700,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          marginBottom: 20,
+        }}
+      >
+        Footprint ·{' '}
+        <Editable k={`present.${slug}.scale.dimensions`}>
+          {c(`present.${slug}.scale.dimensions`, fallback.scale.dimensions || '')}
+        </Editable>
+      </div>
+
+      {/* Plan + iso side by side on desktop, stacked on narrow screens.
+          Plan is first in source order so it loads first on phone. */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 18 }}>
+        <figure
+          onClick={() => onImage(planD.src)}
+          style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
+        >
+          <EditableImage k={`present.${slug}.scale.plan_image`} aspect="16/9" currentValue={planRaw}>
+            <div style={{ aspectRatio: '16 / 9', background: '#eaf3e6', overflow: 'hidden' }}>
+              <img src={planD.src} alt="Course plan — top view" style={imgStyle(planD)} />
+            </div>
+          </EditableImage>
+          <figcaption style={{ padding: '10px 14px', fontSize: 12, color: 'var(--cream-dim)', background: 'var(--ink-2)' }}>
+            Plan view, top-down course layout
+          </figcaption>
+        </figure>
+        {isoD.src && (
           <figure
-            onClick={() => onImage(planD.src)}
+            onClick={() => onImage(isoD.src)}
             style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
           >
-            <EditableImage k={`present.${slug}.scale.plan_image`} aspect="16/9" currentValue={planRaw}>
+            <EditableImage k={`present.${slug}.scale.plan_iso_image`} aspect="16/9" currentValue={isoRaw}>
               <div style={{ aspectRatio: '16 / 9', background: '#eaf3e6', overflow: 'hidden' }}>
-                <img src={planD.src} alt="Course plan — top view" style={imgStyle(planD)} />
+                <img src={isoD.src} alt="Course plan — isometric view" style={imgStyle(isoD)} />
               </div>
             </EditableImage>
             <figcaption style={{ padding: '10px 14px', fontSize: 12, color: 'var(--cream-dim)', background: 'var(--ink-2)' }}>
-              Plan view — top-down course layout
+              Isometric view, course in 3D
             </figcaption>
           </figure>
-          {isoD.src && (
-            <figure
-              onClick={() => onImage(isoD.src)}
-              style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
-            >
-              <EditableImage k={`present.${slug}.scale.plan_iso_image`} aspect="16/9" currentValue={isoRaw}>
-                <div style={{ aspectRatio: '16 / 9', background: '#eaf3e6', overflow: 'hidden' }}>
-                  <img src={isoD.src} alt="Course plan — isometric view" style={imgStyle(isoD)} />
-                </div>
-              </EditableImage>
-              <figcaption style={{ padding: '10px 14px', fontSize: 12, color: 'var(--cream-dim)', background: 'var(--ink-2)' }}>
-                Isometric view — course in 3D
-              </figcaption>
-            </figure>
-          )}
-        </div>
+        )}
       </div>
 
       <StorageSection slug={slug} fallback={fallback} onImage={onImage} />

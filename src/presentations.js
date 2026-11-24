@@ -22,14 +22,14 @@ export const PRESENTATIONS = {
       headline: 'An adventure golf course for Live Nation',
       body: `Wacky Works designs and builds immersive crazy golf courses, modular, shippable and hand-finished.
 
-This course has been in operation at our Borough Market venue for over four years. It has entertained many Londoners and remains a great working, playable piece of art. The course was designed by Plonk and painted by one of London's top graffiti crews, including works by Tiser, Shuck 1, Nacho Welles and other members of the Ghostwriters. They will be employed again for the redux and any additional work added to the course, making this a truly unique London-themed experience.
+This course has been in operation at our Borough Market venue for over four years. It has entertained many Londoners and remains a great working, playable piece of art. The course was designed by Wacky Works and painted by one of London's top graffiti crews, including works by Tiser, Shuck 1, Nacho Welles and other members of the Ghostwriters. They will be employed again for the redux and any additional work added to the course, making this a truly unique London-themed experience.
 
 This pack walks through the nine themed holes, how it ships and installs, and the costs.`,
     },
 
     photos: {
       intro:
-        'Nine themed holes, as installed at Plonk Borough. Click any image to view full-size.',
+        'Nine themed holes, as installed at Wacky Works Borough. Click any image to view full-size.',
       // 9 themed holes shown with their on-site photo + body copy.
       // The photo swap for Hole 4 is a new image; founder can
       // reorder / swap any image via the inline editor.
@@ -177,7 +177,7 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
         headline: 'A 40ft container stores the whole course',
         body: `The entire 9-hole course packs down into a single 40ft shipping container. With the obstacles stored toward the front of the container, the rear end can be fitted out as a built-in bar — a complete pop-up footprint from a single unit.
 
-Delivery, stacking order and bar fit-out are all handled by Plonk. When the course isn't in use, the container doubles as its own storage.`,
+Delivery, stacking order and bar fit-out are all handled by Wacky Works. When the course isn't in use, the container doubles as its own storage.`,
         image: borough('storage-container.webp'),
         caption: 'Interior of a 40ft container · course stacked front (white) · bar fitted at rear (blue)',
       },
@@ -231,7 +231,7 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
           name: 'Workshop Redux',
           total: '£35k',
           blurb:
-            'Plonk takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint, it stays a second-hand course, but visibly refreshed.',
+            'Wacky Works takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint, it stays a second-hand course, but visibly refreshed.',
           lines: [
             { item: 'Course', amount: '£15k' },
             { item: 'Redux (repaint + clean)', amount: '£10k' },
@@ -243,7 +243,7 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
           name: 'Full Redux · Stored · Installed',
           total: '£47k',
           blurb:
-            'Full workshop redux, stored by Plonk through to summer, then installed and delivered to a London venue of your choice, ready for events.',
+            'Full workshop redux, stored by Wacky Works through to summer, then installed and delivered to a London venue of your choice, ready for events.',
           lines: [
             { item: 'Course (upfront)', amount: '£15k' },
             { item: 'Continued storage', amount: '£7k' },
