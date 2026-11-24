@@ -169,7 +169,8 @@ This pack walks through the nine themed holes, how it ships and installs, and th
 The entire course ships on a small number of pallets. Local labour handles install under supervision from a Wacky Works project manager, no messy on-site fabrication, no production interruption to your venue.
 
 Lead time is typically 10–14 weeks from deposit to delivery.`,
-      planImage: '/catalog/pages/page-04.jpg', // the NEW LAYOUT page from the catalogue
+      planImage: borough('layout-plan-top.webp'),   // top-down plan of the course
+      planIsoImage: borough('layout-plan-iso.webp'), // isometric 3D view
     },
 
     costs: {

@@ -537,6 +537,8 @@ function ScaleTab({ slug, fallback, onImage }) {
   const c = useContent()
   const planRaw = c(`present.${slug}.scale.plan_image`, fallback.scale.planImage)
   const planD = parseImg(planRaw)
+  const isoRaw = c(`present.${slug}.scale.plan_iso_image`, fallback.scale.planIsoImage || '')
+  const isoD = parseImg(isoRaw)
   return (
     <div>
       <SectionHead
@@ -554,16 +556,36 @@ function ScaleTab({ slug, fallback, onImage }) {
             </div>
           </Editable>
         </div>
-        <figure
-          onClick={() => onImage(planD.src)}
-          style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)' }}
-        >
-          <EditableImage k={`present.${slug}.scale.plan_image`} aspect="4/3" currentValue={planRaw}>
-            <div style={{ aspectRatio: '4 / 3', background: 'var(--ink-3)', overflow: 'hidden' }}>
-              <img src={planD.src} alt="" style={imgStyle(planD)} />
-            </div>
-          </EditableImage>
-        </figure>
+        <div style={{ display: 'grid', gap: 18 }}>
+          <figure
+            onClick={() => onImage(planD.src)}
+            style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
+          >
+            <EditableImage k={`present.${slug}.scale.plan_image`} aspect="16/9" currentValue={planRaw}>
+              <div style={{ aspectRatio: '16 / 9', background: '#eaf3e6', overflow: 'hidden' }}>
+                <img src={planD.src} alt="Course plan — top view" style={imgStyle(planD)} />
+              </div>
+            </EditableImage>
+            <figcaption style={{ padding: '10px 14px', fontSize: 12, color: 'var(--cream-dim)', background: 'var(--ink-2)' }}>
+              Plan view — top-down course layout
+            </figcaption>
+          </figure>
+          {isoD.src && (
+            <figure
+              onClick={() => onImage(isoD.src)}
+              style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
+            >
+              <EditableImage k={`present.${slug}.scale.plan_iso_image`} aspect="16/9" currentValue={isoRaw}>
+                <div style={{ aspectRatio: '16 / 9', background: '#eaf3e6', overflow: 'hidden' }}>
+                  <img src={isoD.src} alt="Course plan — isometric view" style={imgStyle(isoD)} />
+                </div>
+              </EditableImage>
+              <figcaption style={{ padding: '10px 14px', fontSize: 12, color: 'var(--cream-dim)', background: 'var(--ink-2)' }}>
+                Isometric view — course in 3D
+              </figcaption>
+            </figure>
+          )}
+        </div>
       </div>
     </div>
   )
