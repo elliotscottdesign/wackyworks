@@ -17,7 +17,7 @@ import { supabase } from './lib/supabase.js'
 
 const TABS = [
   { id: 'intro', label: 'Intro' },
-  { id: 'photos', label: 'Previous Work' },
+  { id: 'photos', label: 'The London Course' },
   { id: 'holes', label: 'The Nine Holes' },
   { id: 'scale', label: 'Scale & Install' },
   { id: 'costs', label: 'Costs' },
@@ -332,7 +332,7 @@ function PhotosTab({ slug, fallback, onImage }) {
       <SectionHead
         slug={slug}
         titleKey={`present.${slug}.photos.title`}
-        titleFallback="Previous Work"
+        titleFallback="The London Course"
         introKey={`present.${slug}.photos.intro`}
         introFallback={fallback.photos.intro}
       />
