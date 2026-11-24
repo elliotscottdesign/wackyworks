@@ -371,41 +371,57 @@ function HolesTab({ slug, fallback, onImage }) {
         introKey={`present.${slug}.holes.intro`}
         introFallback={fallback.holes.intro}
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
         {fallback.holes.items.map((h) => {
           const imageKey = `present.${slug}.holes.item_${h.n}.image`
           const nameKey = `present.${slug}.holes.item_${h.n}.name`
+          const copyKey = `present.${slug}.holes.item_${h.n}.copy`
           const raw = c(imageKey, h.image)
           const d = parseImg(raw)
           return (
             <div
               key={h.n}
               className="card"
-              style={{ background: 'var(--ink-2)', border: '1px solid var(--line)', borderRadius: 12, overflow: 'hidden' }}
+              style={{
+                background: 'var(--ink-2)',
+                border: '1px solid var(--line)',
+                borderRadius: 12,
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
             >
+              {/* Image: title (from catalogue) + 3D render on white */}
               <div
-                style={{ cursor: 'zoom-in', aspectRatio: '1036 / 2526', background: '#fff', overflow: 'hidden' }}
+                style={{ cursor: 'zoom-in', aspectRatio: '1179 / 1463', background: '#fff', overflow: 'hidden' }}
                 onClick={() => onImage(d.src)}
               >
-                <EditableImage k={imageKey} aspect="1036/2526" currentValue={raw}>
+                <EditableImage k={imageKey} aspect="1179/1463" currentValue={raw}>
                   <img src={d.src} alt="" style={imgStyle(d)} />
                 </EditableImage>
               </div>
-              <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'baseline', gap: 10 }}>
-                <span
-                  className="display"
-                  style={{
-                    fontSize: 13,
-                    color: 'var(--lime)',
-                    letterSpacing: '0.12em',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  Hole {h.n}
-                </span>
-                <span style={{ fontSize: 14.5, color: 'var(--cream)', fontWeight: 600, lineHeight: 1.2 }}>
-                  <Editable k={nameKey}>{c(nameKey, h.name)}</Editable>
-                </span>
+
+              {/* Body: hole number + name + copy */}
+              <div style={{ padding: '14px 18px 16px', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                  <span
+                    className="display"
+                    style={{
+                      fontSize: 12,
+                      color: 'var(--lime)',
+                      letterSpacing: '0.14em',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Hole {h.n}
+                  </span>
+                  <span style={{ fontSize: 15, color: 'var(--cream)', fontWeight: 600, lineHeight: 1.2 }}>
+                    <Editable k={nameKey}>{c(nameKey, h.name)}</Editable>
+                  </span>
+                </div>
+                <div style={{ fontSize: 13.5, color: 'var(--cream-dim)', lineHeight: 1.55 }}>
+                  <Editable k={copyKey} multiline>{c(copyKey, h.copy || '')}</Editable>
+                </div>
               </div>
             </div>
           )
