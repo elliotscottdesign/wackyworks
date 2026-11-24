@@ -55,7 +55,7 @@ export default function MediaPicker({ onPick, onClose, aspect = '1/1', initial }
           })),
         )
       } catch {
-        /* uploads list is optional — repo images alone are still useful */
+        /* uploads list is optional, repo images alone are still useful */
       }
     })()
     return () => {
@@ -87,7 +87,7 @@ export default function MediaPicker({ onPick, onClose, aspect = '1/1', initial }
         { path: public_url, filename, folder: 'Uploads', source: 'upload' },
         ...prev,
       ])
-      // Fresh uploads bypass the positioner — a naive canvas load
+      // Fresh uploads bypass the positioner, a naive canvas load
       // on multi-megapixel PNGs used to crash the parent modal on
       // nodice.bar. Caller can re-open the picker to fine-tune.
       onPick(public_url)

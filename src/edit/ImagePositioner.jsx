@@ -3,7 +3,7 @@
 // and toggle cover vs. contain. Output shape:
 //   { src, fit, x, y, zoom }
 // Rendered by the public site via CSS object-fit / object-position /
-// transform: scale — matches nodice.bar / plonkgolf behaviour.
+// transform: scale, matches nodice.bar / plonkgolf behaviour.
 import { useRef, useState } from 'react'
 
 export default function ImagePositioner({ src, aspect = '1/1', initial, onSave, onCancel }) {

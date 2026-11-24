@@ -7,7 +7,7 @@ import { CONTACT } from './catalog'
 // ── Start-a-project enquiry form ─────────────────────────────────────────────
 // Fields mirror the Plonk Golf Studios enquiry form. On submit the whole thing is
 // sent to the `send-enquiry` edge function, which stores it and emails it to
-// elliot@wackyworks.co.uk. Everything is required — it's a qualifying brief.
+// elliot@wackyworks.co.uk. Everything is required, it's a qualifying brief.
 
 const RADIO = {
   venue_setting: { label: 'Is your planned venue indoors or outdoors?', options: ['Indoors', 'Outdoors', 'Both'] },
@@ -52,7 +52,7 @@ export default function StartProject() {
       <Shell>
         <div className="eyebrow" style={{ marginBottom: 18 }}>Enquiry received</div>
         <h1 className="display" style={{ fontSize: 'clamp(36px, 6vw, 64px)', color: 'var(--cream)', marginBottom: 16 }}>
-          Thanks — <span style={{ color: 'var(--lime)' }}>we'll be in touch.</span>
+          Thanks, <span style={{ color: 'var(--lime)' }}>we'll be in touch.</span>
         </h1>
         <p style={{ fontSize: 17, color: 'var(--cream-dim)', maxWidth: 560, marginBottom: 30 }}>
           Your brief has landed with the Wacky Works team. We read every one and usually reply within a couple of working days.

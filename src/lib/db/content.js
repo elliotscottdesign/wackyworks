@@ -35,7 +35,7 @@ export async function saveContentValue(key, value, fieldKind) {
     .select('key')
   if (error) throw error
   if (!data || data.length === 0) {
-    // Row didn't exist — insert it. Page inferred from the key prefix
+    // Row didn't exist, insert it. Page inferred from the key prefix
     // ("home.hero.headline_1" → "home").
     const page = key.split('.')[0] || 'misc'
     const { error: insErr } = await supabase.from('page_content').insert({
@@ -52,7 +52,7 @@ export async function saveContentValue(key, value, fieldKind) {
 
 export async function saveContentBatch(updates) {
   if (!supabase) throw new Error('Supabase client not configured')
-  // Supabase-js has no bulk update by primary key — do them in parallel.
+  // Supabase-js has no bulk update by primary key, do them in parallel.
   await Promise.all(
     updates.map(({ key, value }) =>
       supabase.from('page_content').update({ value: value ?? '' }).eq('key', key),

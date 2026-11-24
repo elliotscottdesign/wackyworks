@@ -1,6 +1,6 @@
 // Single Supabase client instance for the whole app.
 //
-// The anon public key is safe to ship in the client bundle — Row
+// The anon public key is safe to ship in the client bundle, Row
 // Level Security enforces who can actually read/write. Env vars
 // override the defaults so we can point a dev build at a different
 // project without editing this file.

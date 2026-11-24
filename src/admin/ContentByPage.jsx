@@ -7,7 +7,7 @@ import MediaPicker from '../edit/MediaPicker.jsx'
 import { parseImageValue, serialiseImageValue } from '../lib/content.jsx'
 import { FALLBACKS } from '../fallbacks.js'
 
-// Slot aspect ratios per key prefix — determines the shape of the
+// Slot aspect ratios per key prefix, determines the shape of the
 // crop preview in the ImagePositioner. Matches what PublicSite.jsx
 // actually renders.
 const ASPECT_FOR = (key) => {
@@ -25,7 +25,7 @@ export default function ContentByPage() {
 
   const [rows, setRows] = useState([])
   const [values, setValues] = useState({})     // current input state
-  const [originals, setOriginals] = useState({}) // seeded state — DB value if set, else fallback
+  const [originals, setOriginals] = useState({}) // seeded state, DB value if set, else fallback
   const [fromDb, setFromDb] = useState({})     // per key: did the seed come from Supabase or fallback?
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -79,7 +79,7 @@ export default function ContentByPage() {
         .filter((r) => (values[r.key] ?? '') !== (originals[r.key] ?? ''))
         .map((r) => ({ key: r.key, value: values[r.key] ?? '' }))
       await saveContentBatch(updates)
-      // Now the DB matches what the user just saw — promote everything
+      // Now the DB matches what the user just saw, promote everything
       // in `values` into originals so dirty resets to false.
       setOriginals(values)
       // Any field we saved is now DB-backed.
@@ -182,7 +182,7 @@ function Field({ row, value, isDefault, isDirty, onChange, onOpenPicker }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <div style={label}>{row.label}</div>
           {isDefault && (
-            <span style={tagDefault} title="Coming from the hardcoded default — save to write your own value into the database.">
+            <span style={tagDefault} title="Coming from the hardcoded default, save to write your own value into the database.">
               Showing default
             </span>
           )}
@@ -279,7 +279,7 @@ function renderInput(kind, key, value, onChange, onOpenPicker) {
             </button>
           )}
           <div style={{ fontSize: 11, color: 'var(--cream-dim)', fontFamily: 'monospace', wordBreak: 'break-all' }}>
-            {d.src || '(empty — falls back to hardcoded default)'}
+            {d.src || '(empty, falls back to hardcoded default)'}
           </div>
           {d.src && (
             <div style={{ fontSize: 10.5, color: 'var(--cream-dim)' }}>

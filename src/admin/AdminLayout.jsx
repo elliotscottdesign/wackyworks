@@ -5,7 +5,7 @@ import { PRESENTATIONS } from '../presentations.js'
 
 const PAGES = [
   { slug: 'header', label: 'Header + Nav' },
-  { slug: 'home', label: 'Homepage — Hero / Craft / CTA' },
+  { slug: 'home', label: 'Homepage, Hero / Craft / CTA' },
   { slug: 'obstacles', label: 'Obstacles (14)' },
   { slug: 'finishes', label: 'Finishes (3)' },
   { slug: 'services', label: 'Services (3)' },

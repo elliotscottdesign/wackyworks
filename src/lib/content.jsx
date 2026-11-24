@@ -27,7 +27,7 @@ const ContentContext = createContext({
 })
 
 // ─────────────────────────────────────────────────────────────
-// Image value parser — matches nodice.bar's convention.
+// Image value parser, matches nodice.bar's convention.
 // An image field can be a plain URL string, or a JSON blob:
 //   {"src":"…","fit":"cover","x":50,"y":50,"zoom":1}
 // So the crop / focal point picker can survive the round trip.
@@ -88,7 +88,7 @@ export function ContentProvider({ children }) {
     setLoaded(true)
   }, [])
 
-  // Optimistic local update — used by inline editor after a save.
+  // Optimistic local update, used by inline editor after a save.
   const setLocal = useCallback((key, value) => {
     setMap((prev) => {
       const next = new Map(prev)
@@ -114,7 +114,7 @@ export function ContentProvider({ children }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Hook — returns a getter `c(key, fallback)`.
+// Hook, returns a getter `c(key, fallback)`.
 // Using a getter avoids calling hooks inside .map() loops, which
 // would break the rules of hooks for lists of items.
 // ─────────────────────────────────────────────────────────────
@@ -129,13 +129,13 @@ export function useContent() {
   )
 }
 
-// Convenience wrapper for image fields — returns the parsed object.
+// Convenience wrapper for image fields, returns the parsed object.
 export function useContentImage() {
   const c = useContent()
   return useCallback((key, fallback) => parseImageValue(c(key, fallback)), [c])
 }
 
-// Same as useContentImage but for a single key — the display object
+// Same as useContentImage but for a single key, the display object
 // resolved from Supabase (or fallback), ready for object-fit CSS.
 export function useImageDisplay(key, fallback) {
   const c = useContent()

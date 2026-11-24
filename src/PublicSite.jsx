@@ -26,7 +26,7 @@ const F = {
   'hero.headline_1': 'We build worlds',
   'hero.headline_2': 'you play through.',
   'hero.subhead':
-    'Wacky Works designs and builds crazy golf courses — modular, shippable, and hand-finished. From the natural finish to fully themed sculpted worlds, every course installs with local labour and stands the test of a busy venue.',
+    'Wacky Works designs and builds crazy golf courses, modular, shippable, and hand-finished. From the natural finish to fully themed sculpted worlds, every course installs with local labour and stands the test of a busy venue.',
   'hero.cta_label': 'Start a project',
   'craft.eyebrow': INTRO.eyebrow,
   'craft.stat': INTRO.stat,
@@ -36,26 +36,26 @@ const F = {
   'obstacles.eyebrow': 'Modular obstacles',
   'obstacles.title': 'The Obstacles',
   'obstacles.intro':
-    'Fourteen tried-and-tested pieces. Arrange them any way you like — swap holes in later years, retrofit new theming, keep customers coming back.',
+    'Fourteen tried-and-tested pieces. Arrange them any way you like, swap holes in later years, retrofit new theming, keep customers coming back.',
   'finishes.eyebrow': 'Theming & finishing',
   'finishes.title': 'Three Finishes',
   'finishes.intro':
-    'Pick a finish for the course. Move up a tier later — every finish sits on the same modular obstacles.',
+    'Pick a finish for the course. Move up a tier later, every finish sits on the same modular obstacles.',
   'services.eyebrow': 'Beyond the course',
   'services.title': 'Additional Services',
   'services.intro':
-    'From branding a single hole to designing the whole venue — bar, garden, signage and all.',
+    'From branding a single hole to designing the whole venue, bar, garden, signage and all.',
   'packages.eyebrow': '9-hole course · turn-key',
   'packages.title': 'Packages',
   'packages.intro':
-    'Three turn-key packages for a 9-hole course. Every line is cherry-pickable — take the whole pack or only the pieces you need.',
+    'Three turn-key packages for a 9-hole course. Every line is cherry-pickable, take the whole pack or only the pieces you need.',
   'packages.notes': PACKAGE_NOTES.join('\n'),
   'packages.reference_sheet': PRICING_SHEET,
   'cta.eyebrow': 'Ready when you are',
   'cta.headline_1': 'No project is',
   'cta.headline_2': 'too ambitious.',
   'cta.body':
-    "Every course starts with a conversation. Tell us the space, the vibe and the budget — we'll design around it.",
+    "Every course starts with a conversation. Tell us the space, the vibe and the budget, we'll design around it.",
   'footer.address': CONTACT.address,
   'footer.company': CONTACT.company,
 }
@@ -339,7 +339,7 @@ function Finishes({ onImage }) {
                       ))}
                     </div>
                     <div style={{ fontSize: 10.5, color: 'var(--cream-dim)', marginTop: 8, fontStyle: 'italic' }}>
-                      (Edit the whole bullet list on the Finishes admin page — one bullet per line.)
+                      (Edit the whole bullet list on the Finishes admin page, one bullet per line.)
                     </div>
                   </div>
                   <div style={{ marginTop: 'auto', paddingTop: 12, borderTop: '1px solid var(--line)', fontSize: 13, color: 'var(--cream-dim)' }}>
@@ -460,7 +460,7 @@ function Packages({ onImage }) {
                   ))}
                 </ul>
                 <div style={{ fontSize: 10.5, color: 'var(--cream-dim)', fontStyle: 'italic' }}>
-                  (Edit line items on the Packages admin page — one per line, format "Description | Amount".)
+                  (Edit line items on the Packages admin page, one per line, format "Description | Amount".)
                 </div>
               </div>
             )
@@ -588,7 +588,7 @@ function SectionHead({ eyebrowKey, titleKey, introKey }) {
   )
 }
 
-// Image display helpers — parse the JSON blob and apply crop.
+// Image display helpers, parse the JSON blob and apply crop.
 function parseImg(v) {
   return parseImageValue(v)
 }

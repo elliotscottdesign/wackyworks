@@ -1,7 +1,7 @@
 // Edit-mode context. Adding ?edit=1 to any URL flips edit mode on
 // and stores the flag in sessionStorage so navigations within the
 // site keep it on. Only fires the switch if a Supabase session is
-// present — no random visitor can turn on edit mode themselves.
+// present, no random visitor can turn on edit mode themselves.
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
 
@@ -12,7 +12,7 @@ export function EditModeProvider({ children }) {
   const [canEdit, setCanEdit] = useState(false)
   const [editMode, setEditMode] = useState(false)
 
-  // Track auth session (any signed-in user can edit — RLS also enforces).
+  // Track auth session (any signed-in user can edit, RLS also enforces).
   useEffect(() => {
     let mounted = true
     const check = async () => {

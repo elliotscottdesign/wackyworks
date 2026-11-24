@@ -4,7 +4,7 @@
 // present/<slug> with the access code.
 
 const borough = (f) => `/present/live-nation/${f}`
-// Left-column crops of the catalogue pages — copy + 3D isometric
+// Left-column crops of the catalogue pages, copy + 3D isometric
 // render only, with the themed install photos trimmed off.
 const hole = (n) => `/present/holes/hole-page-${String(n).padStart(2, '0')}.jpg`
 
@@ -12,16 +12,16 @@ export const PRESENTATIONS = {
   'live-nation': {
     client: 'Live Nation',
     code: '3456',
-    title: 'Adventure Golf — Live Nation',
+    title: 'Adventure Golf, Live Nation',
     tagline: 'A 9-hole immersive crazy golf course by Wacky Works.',
-    heroImage: borough('MPL_294A9363_Web.jpg'),
+    heroImage: borough('294A7835_web_2.jpg'),
 
     intro: {
       eyebrow: 'Private presentation',
       headline: 'An adventure golf course for Live Nation',
-      body: `Wacky Works designs and builds immersive crazy golf courses — modular, shippable and hand-finished.
+      body: `Wacky Works designs and builds immersive crazy golf courses, modular, shippable and hand-finished.
 
-This course has been in operation at our Borough Market venue for over four years. It has entertained many Londoners and remains a great working, playable piece of art. The course was designed by Plonk and painted by one of London's top graffiti crews — including works by Tiser, Shuck 1, Nacho Welles and other members of the Ghostwriters. They will be employed again for the redux and any additional work added to the course, making this a truly unique London-themed experience.
+This course has been in operation at our Borough Market venue for over four years. It has entertained many Londoners and remains a great working, playable piece of art. The course was designed by Plonk and painted by one of London's top graffiti crews, including works by Tiser, Shuck 1, Nacho Welles and other members of the Ghostwriters. They will be employed again for the redux and any additional work added to the course, making this a truly unique London-themed experience.
 
 This pack walks through the nine themed holes, how it ships and installs, and the costs.`,
     },
@@ -49,7 +49,7 @@ This pack walks through the nine themed holes, how it ships and installs, and th
           n: 3,
           name: 'Borough Market',
           image: borough('294A7878_web.jpg'),
-          copy: 'Players putt around Borough Market. A ½-pipe hole where players have to putt carefully up and down to reach the hole — or they will find themselves having to play a few more strokes.',
+          copy: 'Players putt around Borough Market. A ½-pipe hole where players have to putt carefully up and down to reach the hole, or they will find themselves having to play a few more strokes.',
         },
         {
           n: 4,
@@ -99,21 +99,21 @@ This pack walks through the nine themed holes, how it ships and installs, and th
           catalogueTitle: 'Loop da Loop',
           name: 'Mini loop + mini hill',
           image: hole(16),
-          copy: 'A compact combo opener: a scaled-down loop paired with a mini hill. Perhaps the most beloved of all our obstacles — gravity-defying but unforgiving if you swing too hard.',
+          copy: 'A compact combo opener: a scaled-down loop paired with a mini hill. Perhaps the most beloved of all our obstacles, gravity-defying but unforgiving if you swing too hard.',
         },
         {
           n: 2,
           catalogueTitle: 'Jump & Target',
           name: 'Jump & catcher',
           image: hole(11),
-          copy: 'Power and accuracy both matter. Players launch the ball off a ramp and aim to land it in a catcher — the ball then rolls out to the hole. Miss the catcher and it’s a putt on the greens to finish.',
+          copy: 'Power and accuracy both matter. Players launch the ball off a ramp and aim to land it in a catcher, the ball then rolls out to the hole. Miss the catcher and it’s a putt on the greens to finish.',
         },
         {
           n: 3,
           catalogueTitle: '½ Pipe',
           name: '½ pipe',
           image: hole(8),
-          copy: 'Players have to swoop the ball across two opposing ramps. Playing the angles is critical — misjudge it and the ball rests in a trap space, back at the start.',
+          copy: 'Players have to swoop the ball across two opposing ramps. Playing the angles is critical, misjudge it and the ball rests in a trap space, back at the start.',
         },
         {
           n: 4,
@@ -134,28 +134,28 @@ This pack walks through the nine themed holes, how it ships and installs, and th
           catalogueTitle: 'Loop da Loop',
           name: 'Big loop + ramp',
           image: hole(16),
-          copy: 'The signature obstacle, sized up: a big loop paired with a lead-in ramp. Watch your speed as well as your angle — too much power and the ball flies right out the other side.',
+          copy: 'The signature obstacle, sized up: a big loop paired with a lead-in ramp. Watch your speed as well as your angle, too much power and the ball flies right out the other side.',
         },
         {
           n: 7,
           catalogueTitle: 'Big Ramp & Ball Runs',
           name: 'Big ramp + ball runs',
           image: hole(18),
-          copy: 'Hit the ball to the top of a big ramp — it then gutters down a randomising ball run. Depending where the ball comes out the player may get a hole in 1, or have to putt to finish. Layout variations fit the space.',
+          copy: 'Hit the ball to the top of a big ramp, it then gutters down a randomising ball run. Depending where the ball comes out the player may get a hole in 1, or have to putt to finish. Layout variations fit the space.',
         },
         {
           n: 8,
           catalogueTitle: 'Big Ramps',
           name: 'Big ramps',
           image: hole(10),
-          copy: 'A fun way to start — or close — a sequence. What looks like a simple shot gets tricky fast: players have to learn to use the bumpers to find the right angle into the central trough. Variations add bonus targets and ball traps.',
+          copy: 'A fun way to start, or close, a sequence. What looks like a simple shot gets tricky fast: players have to learn to use the bumpers to find the right angle into the central trough. Variations add bonus targets and ball traps.',
         },
         {
           n: 9,
           catalogueTitle: 'Skeeball',
           name: 'Skeeball',
           image: hole(15),
-          copy: 'Based on the classic arcade game. Players take a shot up a ramp and aim for specific targets to score bonus points. Used as the last hole — it catches and stores the balls — and can double as a promotional / marketing piece.',
+          copy: 'Based on the classic arcade game. Players take a shot up a ramp and aim for specific targets to score bonus points. Used as the last hole, it catches and stores the balls, and can double as a promotional / marketing piece.',
         },
       ],
     },
@@ -163,9 +163,9 @@ This pack walks through the nine themed holes, how it ships and installs, and th
     scale: {
       eyebrow: 'The build',
       headline: 'Shipped flat-pack · installed on-site',
-      body: `Each hole averages 6m² — a 9-hole course fits comfortably into 80–150m² depending on circulation and theming.
+      body: `Each hole averages 6m², a 9-hole course fits comfortably into 80–150m² depending on circulation and theming.
 
-The entire course ships on a small number of pallets. Local labour handles install under supervision from a Wacky Works project manager — no messy on-site fabrication, no production interruption to your venue.
+The entire course ships on a small number of pallets. Local labour handles install under supervision from a Wacky Works project manager, no messy on-site fabrication, no production interruption to your venue.
 
 Lead time is typically 10–14 weeks from deposit to delivery.`,
       planImage: '/catalog/pages/page-04.jpg', // the NEW LAYOUT page from the catalogue
@@ -190,7 +190,7 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
           name: 'Workshop Redux',
           total: '£30k',
           blurb:
-            'Plonk takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint — it stays a second-hand course — but visibly refreshed.',
+            'Plonk takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint, it stays a second-hand course, but visibly refreshed.',
           lines: [
             { item: 'Course', amount: '£15k' },
             { item: 'Redux (repaint + clean)', amount: '£10k' },
@@ -201,7 +201,7 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
           name: 'Full Redux · Stored · Installed',
           total: '£42k',
           blurb:
-            'Full workshop redux, stored by Plonk through to summer, then installed and delivered to a London venue of your choice — ready for events.',
+            'Full workshop redux, stored by Plonk through to summer, then installed and delivered to a London venue of your choice, ready for events.',
           lines: [
             { item: 'Course (upfront)', amount: '£15k' },
             { item: 'Continued storage', amount: '£7k' },
@@ -212,7 +212,7 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
         },
       ],
       footnote:
-        'Second-hand 9-hole course. Prices are the course only — equipment (clubs, balls, scorecards, pencils, signs) can be quoted on request.',
+        'Second-hand 9-hole course. Prices are the course only, equipment (clubs, balls, scorecards, pencils, signs) can be quoted on request.',
     },
   },
 }

@@ -125,7 +125,7 @@ export default function AdminBar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
         <button
           onClick={toggle}
-          title="Toggle in-place editing — click any text or image on the page to edit it"
+          title="Toggle in-place editing, click any text or image on the page to edit it"
           style={{
             ...pill,
             background: editMode ? 'var(--lime)' : 'transparent',
@@ -134,7 +134,7 @@ export default function AdminBar() {
           }}
         >
           {editMode ? <Check size={12} /> : <Pencil size={12} />}
-          {editMode ? 'Editing — click to stop' : 'Edit on page'}
+          {editMode ? 'Editing, click to stop' : 'Edit on page'}
         </button>
         <Link to={t.href} style={{ ...pill, background: 'var(--lime)', color: '#0e0f0c', textDecoration: 'none' }}>
           <LayoutGrid size={12} /> Open editor → {t.label}
