@@ -209,8 +209,7 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
         items: [
           '2 × cocktail stations',
           '2 × fridges',
-          'Liquor bottles',
-          'Counters + shelves',
+          'Liquor bottles, counters + shelves',
           'Water in & out, plumbed to tank',
           'Power in on fuseboard',
           'Bar sign',
