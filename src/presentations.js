@@ -15,6 +15,7 @@ export const PRESENTATIONS = {
     title: 'Adventure Golf, Live Nation',
     tagline: 'A 9-hole immersive crazy golf course by Wacky Works.',
     heroImage: borough('294A7835_web_2.jpg'),
+    heroVideo: borough('london-course.mp4'),
 
     intro: {
       eyebrow: 'Private presentation',

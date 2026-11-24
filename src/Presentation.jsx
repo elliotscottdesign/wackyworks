@@ -287,19 +287,36 @@ function IntroTab({ slug, fallback, onImage }) {
   const c = useContent()
   const heroRaw = c(`present.${slug}.hero_image`, fallback.heroImage)
   const heroD = parseImg(heroRaw)
+  const heroVideo = c(`present.${slug}.hero_video`, fallback.heroVideo || '')
   const body = c(`present.${slug}.intro.body`, fallback.intro.body)
   return (
     <div>
-      <figure
-        onClick={() => onImage(heroD.src)}
-        style={{ cursor: 'zoom-in', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)' }}
-      >
-        <EditableImage k={`present.${slug}.hero_image`} aspect="3/2" currentValue={heroRaw}>
-          <div style={{ aspectRatio: '3 / 2', overflow: 'hidden', background: 'var(--ink-3)' }}>
-            <img src={heroD.src} alt="" style={imgStyle(heroD)} />
-          </div>
-        </EditableImage>
-      </figure>
+      {heroVideo ? (
+        <figure style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)', background: 'var(--ink-3)', margin: 0 }}>
+          <video
+            src={heroVideo}
+            poster={heroD.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls={false}
+            preload="auto"
+            style={{ width: '100%', display: 'block', aspectRatio: '3 / 2', objectFit: 'cover', background: '#000' }}
+          />
+        </figure>
+      ) : (
+        <figure
+          onClick={() => onImage(heroD.src)}
+          style={{ cursor: 'zoom-in', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)' }}
+        >
+          <EditableImage k={`present.${slug}.hero_image`} aspect="3/2" currentValue={heroRaw}>
+            <div style={{ aspectRatio: '3 / 2', overflow: 'hidden', background: 'var(--ink-3)' }}>
+              <img src={heroD.src} alt="" style={imgStyle(heroD)} />
+            </div>
+          </EditableImage>
+        </figure>
+      )}
 
       <div style={{ textAlign: 'center', margin: '40px 0 28px' }}>
         <div className="eyebrow">
