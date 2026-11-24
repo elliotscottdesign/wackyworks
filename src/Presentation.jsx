@@ -693,6 +693,7 @@ function LegendSwatch({ color, border, label }) {
 function CostsTab({ slug, fallback }) {
   const c = useContent()
   const deliverables = fallback.costs?.deliverables
+  const barContainer = fallback.costs?.barAndContainer
   return (
     <div>
       {deliverables && (
@@ -727,6 +728,65 @@ function CostsTab({ slug, fallback }) {
                 ).map((item, i) => (
                   <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', color: 'var(--cream)', fontSize: 15, lineHeight: 1.55 }}>
                     <span style={{ color: 'var(--lime)', flexShrink: 0, lineHeight: 1.55 }}>◆</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </Editable>
+          </div>
+        </section>
+      )}
+
+      {barContainer && (
+        <section style={{ marginBottom: 48 }}>
+          <div className="eyebrow" style={{ marginBottom: 10 }}>
+            <Editable k={`present.${slug}.costs.barcontainer.eyebrow`}>
+              {c(`present.${slug}.costs.barcontainer.eyebrow`, barContainer.eyebrow)}
+            </Editable>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', marginBottom: 20 }}>
+            <h2 className="display" style={{ fontSize: 'clamp(28px, 4vw, 40px)', color: 'var(--cream)' }}>
+              <Editable k={`present.${slug}.costs.barcontainer.headline`}>
+                {c(`present.${slug}.costs.barcontainer.headline`, barContainer.headline)}
+              </Editable>
+            </h2>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+              <span className="display" style={{ fontSize: 'clamp(28px, 4vw, 40px)', color: 'var(--lime)', lineHeight: 1 }}>
+                <Editable k={`present.${slug}.costs.barcontainer.price`}>
+                  {c(`present.${slug}.costs.barcontainer.price`, barContainer.price)}
+                </Editable>
+              </span>
+              <span style={{ fontSize: 13, color: 'var(--cream-dim)' }}>
+                <Editable k={`present.${slug}.costs.barcontainer.price_note`}>
+                  {c(`present.${slug}.costs.barcontainer.price_note`, barContainer.priceNote || '+ VAT')}
+                </Editable>
+              </span>
+            </div>
+          </div>
+          <div
+            style={{
+              background: 'var(--ink-2)',
+              border: '1px solid var(--line)',
+              borderRadius: 14,
+              padding: '22px 26px',
+            }}
+          >
+            {barContainer.intro && (
+              <div style={{ color: 'var(--cream-dim)', fontSize: 15, lineHeight: 1.55, marginBottom: 18 }}>
+                <Editable k={`present.${slug}.costs.barcontainer.intro`} multiline>
+                  {c(`present.${slug}.costs.barcontainer.intro`, barContainer.intro)}
+                </Editable>
+              </div>
+            )}
+            <Editable k={`present.${slug}.costs.barcontainer.items`} multiline>
+              <ul style={{ listStyle: 'none', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 10, margin: 0, padding: 0 }}>
+                {(c(`present.${slug}.costs.barcontainer.items`, barContainer.items.join('\n'))
+                  .split('\n')
+                  .map((s) => s.trim())
+                  .filter(Boolean)
+                ).map((item, i) => (
+                  <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', color: 'var(--cream)', fontSize: 14.5, lineHeight: 1.5 }}>
+                    <span style={{ color: 'var(--lime)', flexShrink: 0 }}>◆</span>
                     <span>{item}</span>
                   </li>
                 ))}

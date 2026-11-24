@@ -200,6 +200,23 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
           'Pencils',
         ],
       },
+      barAndContainer: {
+        eyebrow: 'Optional add-on',
+        headline: 'Bar & Container',
+        price: '£25k',
+        priceNote: '+ VAT',
+        intro: 'Theme-painted 40ft container (both sides) with a full interior bar fit-out — delivered ready to serve.',
+        items: [
+          '2 × cocktail stations',
+          '2 × fridges',
+          'Liquor bottles',
+          'Counters + shelves',
+          'Water in & out, plumbed to tank',
+          'Power in on fuseboard',
+          'Bar sign',
+          'Container exterior theme-painted both sides',
+        ],
+      },
       packages: [
         {
           name: 'Delivered As-Is',
