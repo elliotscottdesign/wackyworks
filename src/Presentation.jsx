@@ -291,52 +291,86 @@ function IntroTab({ slug, fallback, onImage }) {
   const body = c(`present.${slug}.intro.body`, fallback.intro.body)
   return (
     <div>
-      {heroVideo ? (
-        <figure style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)', background: 'var(--ink-3)', margin: 0 }}>
-          <video
-            src={heroVideo}
-            poster={heroD.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls={false}
-            preload="auto"
-            style={{ width: '100%', display: 'block', aspectRatio: '3 / 2', objectFit: 'cover', background: '#000' }}
-          />
-        </figure>
-      ) : (
-        <figure
-          onClick={() => onImage(heroD.src)}
-          style={{ cursor: 'zoom-in', borderRadius: 16, overflow: 'hidden', border: '1px solid var(--line)' }}
-        >
-          <EditableImage k={`present.${slug}.hero_image`} aspect="3/2" currentValue={heroRaw}>
-            <div style={{ aspectRatio: '3 / 2', overflow: 'hidden', background: 'var(--ink-3)' }}>
-              <img src={heroD.src} alt="" style={imgStyle(heroD)} />
+      {/* Two-column on desktop (copy left, portrait video right).
+          Stacks to single column on narrow screens — copy first,
+          video below — because source order is copy → video. */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 40,
+          alignItems: 'start',
+        }}
+      >
+        {/* LEFT — copy column */}
+        <div>
+          <div className="eyebrow">
+            <Editable k={`present.${slug}.intro.eyebrow`}>
+              {c(`present.${slug}.intro.eyebrow`, fallback.intro.eyebrow)}
+            </Editable>
+          </div>
+          <h1
+            className="display"
+            style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', lineHeight: 1.05, margin: '14px 0 22px', color: 'var(--cream)' }}
+          >
+            <Editable k={`present.${slug}.intro.headline`}>
+              {c(`present.${slug}.intro.headline`, fallback.intro.headline)}
+            </Editable>
+          </h1>
+          <Editable k={`present.${slug}.intro.body`} multiline>
+            <div style={{ whiteSpace: 'pre-wrap', color: 'var(--cream)', opacity: 0.92, fontSize: 16, lineHeight: 1.6 }}>
+              {body}
             </div>
-          </EditableImage>
-        </figure>
-      )}
-
-      <div style={{ textAlign: 'center', margin: '40px 0 28px' }}>
-        <div className="eyebrow">
-          <Editable k={`present.${slug}.intro.eyebrow`}>
-            {c(`present.${slug}.intro.eyebrow`, fallback.intro.eyebrow)}
           </Editable>
         </div>
-        <h1 className="display" style={{ fontSize: 'clamp(36px, 6vw, 60px)', lineHeight: 1.05, margin: '14px 0', color: 'var(--cream)' }}>
-          <Editable k={`present.${slug}.intro.headline`}>
-            {c(`present.${slug}.intro.headline`, fallback.intro.headline)}
-          </Editable>
-        </h1>
-      </div>
 
-      <div style={{ maxWidth: 760, margin: '0 auto' }}>
-        <Editable k={`present.${slug}.intro.body`} multiline>
-          <div style={{ whiteSpace: 'pre-wrap', color: 'var(--cream)', opacity: 0.92, fontSize: 16.5, lineHeight: 1.6 }}>
-            {body}
-          </div>
-        </Editable>
+        {/* RIGHT — portrait media. Video wins if set, else still image. */}
+        {heroVideo ? (
+          <figure
+            style={{
+              borderRadius: 16,
+              overflow: 'hidden',
+              border: '1px solid var(--line)',
+              background: '#000',
+              margin: 0,
+              maxWidth: 420,
+              justifySelf: 'center',
+              width: '100%',
+            }}
+          >
+            <video
+              src={heroVideo}
+              poster={heroD.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls={false}
+              preload="metadata"
+              style={{ width: '100%', display: 'block', aspectRatio: '9 / 16', objectFit: 'cover', background: '#000' }}
+            />
+          </figure>
+        ) : (
+          <figure
+            onClick={() => onImage(heroD.src)}
+            style={{
+              cursor: 'zoom-in',
+              borderRadius: 16,
+              overflow: 'hidden',
+              border: '1px solid var(--line)',
+              margin: 0,
+              maxWidth: 420,
+              justifySelf: 'center',
+              width: '100%',
+            }}
+          >
+            <EditableImage k={`present.${slug}.hero_image`} aspect="9/16" currentValue={heroRaw}>
+              <div style={{ aspectRatio: '9 / 16', overflow: 'hidden', background: 'var(--ink-3)' }}>
+                <img src={heroD.src} alt="" style={imgStyle(heroD)} />
+              </div>
+            </EditableImage>
+          </figure>
+        )}
       </div>
     </div>
   )
