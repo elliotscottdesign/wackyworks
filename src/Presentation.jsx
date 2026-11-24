@@ -609,6 +609,79 @@ function ScaleTab({ slug, fallback, onImage }) {
           )}
         </div>
       </div>
+
+      <StorageSection slug={slug} fallback={fallback} onImage={onImage} />
+    </div>
+  )
+}
+
+function StorageSection({ slug, fallback, onImage }) {
+  const c = useContent()
+  const storage = fallback.scale?.storage
+  if (!storage) return null
+  const raw = c(`present.${slug}.scale.storage.image`, storage.image)
+  const d = parseImg(raw)
+  return (
+    <section style={{ marginTop: 56, paddingTop: 36, borderTop: '1px solid var(--line)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 36, alignItems: 'center' }}>
+        <div>
+          <div className="eyebrow" style={{ marginBottom: 10 }}>
+            <Editable k={`present.${slug}.scale.storage.eyebrow`}>
+              {c(`present.${slug}.scale.storage.eyebrow`, storage.eyebrow)}
+            </Editable>
+          </div>
+          <h3
+            className="display"
+            style={{ fontSize: 'clamp(24px, 3.5vw, 36px)', color: 'var(--cream)', marginBottom: 14, lineHeight: 1.1 }}
+          >
+            <Editable k={`present.${slug}.scale.storage.headline`}>
+              {c(`present.${slug}.scale.storage.headline`, storage.headline)}
+            </Editable>
+          </h3>
+          <Editable k={`present.${slug}.scale.storage.body`} multiline>
+            <div style={{ whiteSpace: 'pre-wrap', color: 'var(--cream)', opacity: 0.9, fontSize: 15.5, lineHeight: 1.6 }}>
+              {c(`present.${slug}.scale.storage.body`, storage.body)}
+            </div>
+          </Editable>
+          <div style={{ display: 'flex', gap: 18, marginTop: 20, flexWrap: 'wrap' }}>
+            <LegendSwatch color="#ffffff" border="var(--line)" label="Course stored" />
+            <LegendSwatch color="#1dd2e1" label="Bar fit-out" />
+          </div>
+        </div>
+        <figure
+          onClick={() => onImage(d.src)}
+          style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
+        >
+          <EditableImage k={`present.${slug}.scale.storage.image`} aspect="1/1" currentValue={raw}>
+            <div style={{ aspectRatio: '1 / 1', background: '#ffffff', overflow: 'hidden' }}>
+              <img src={d.src} alt="40ft container plan" style={imgStyle(d)} />
+            </div>
+          </EditableImage>
+          <figcaption style={{ padding: '10px 14px', fontSize: 12, color: 'var(--cream-dim)', background: 'var(--ink-2)' }}>
+            <Editable k={`present.${slug}.scale.storage.caption`}>
+              {c(`present.${slug}.scale.storage.caption`, storage.caption)}
+            </Editable>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  )
+}
+
+function LegendSwatch({ color, border, label }) {
+  return (
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--cream-dim)' }}>
+      <span
+        style={{
+          width: 14,
+          height: 14,
+          borderRadius: 3,
+          background: color,
+          border: border ? `1px solid ${border}` : 'none',
+          display: 'inline-block',
+        }}
+      />
+      {label}
     </div>
   )
 }

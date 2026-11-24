@@ -172,6 +172,15 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
       planImage: borough('layout-plan-top.webp'),   // top-down plan of the course
       planIsoImage: borough('layout-plan-iso.webp'), // isometric 3D view
       dimensions: '10m × 20m pitch',
+      storage: {
+        eyebrow: 'Storage & bar',
+        headline: 'A 40ft container stores the whole course',
+        body: `The entire 9-hole course packs down into a single 40ft shipping container. With the obstacles stored toward the front of the container, the rear end can be fitted out as a built-in bar — a complete pop-up footprint from a single unit.
+
+Delivery, stacking order and bar fit-out are all handled by Plonk. When the course isn't in use, the container doubles as its own storage.`,
+        image: borough('storage-container.webp'),
+        caption: 'Interior of a 40ft container · course stacked front (white) · bar fitted at rear (blue)',
+      },
     },
 
     costs: {
