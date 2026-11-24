@@ -60,7 +60,7 @@ This pack walks through the nine themed holes, how it ships and installs, and th
         },
         {
           n: 5,
-          name: 'Love Guns · HMS Belfast',
+          name: 'Make Love not War',
           image: borough('294A8728_web.jpg'),
           copy: 'Players putt up a big ramp and load the cannons of the Belfast. Then pull back on a pinball-style launcher and try to hit bonuses to clear the mini-game and get back to the fairway to finish.',
         },
