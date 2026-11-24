@@ -171,6 +171,7 @@ The entire course ships on a small number of pallets. Local labour handles insta
 Lead time is typically 10–14 weeks from deposit to delivery.`,
       planImage: borough('layout-plan-top.webp'),   // top-down plan of the course
       planIsoImage: borough('layout-plan-iso.webp'), // isometric 3D view
+      dimensions: '10m × 20m pitch',
     },
 
     costs: {

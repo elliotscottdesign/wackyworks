@@ -557,6 +557,28 @@ function ScaleTab({ slug, fallback, onImage }) {
           </Editable>
         </div>
         <div style={{ display: 'grid', gap: 18 }}>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '10px 16px',
+              borderRadius: 999,
+              border: '1px solid rgba(200, 241, 58, 0.35)',
+              background: 'rgba(200, 241, 58, 0.06)',
+              color: 'var(--lime)',
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              width: 'fit-content',
+            }}
+          >
+            Footprint ·{' '}
+            <Editable k={`present.${slug}.scale.dimensions`}>
+              {c(`present.${slug}.scale.dimensions`, fallback.scale.dimensions || '')}
+            </Editable>
+          </div>
           <figure
             onClick={() => onImage(planD.src)}
             style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', margin: 0 }}
