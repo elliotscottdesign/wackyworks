@@ -327,6 +327,7 @@ function IntroTab({ slug, fallback, onImage }) {
 
 function PhotosTab({ slug, fallback, onImage }) {
   const c = useContent()
+  const holes = fallback.photos.holes || []
   return (
     <div>
       <SectionHead
@@ -336,23 +337,56 @@ function PhotosTab({ slug, fallback, onImage }) {
         introKey={`present.${slug}.photos.intro`}
         introFallback={fallback.photos.intro}
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14 }}>
-        {fallback.photos.images.map((src, i) => {
-          const key = `present.${slug}.photos.item_${i + 1}`
-          const raw = c(key, src)
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20 }}>
+        {holes.map((h) => {
+          const imageKey = `present.${slug}.photos.hole_${h.n}.image`
+          const nameKey = `present.${slug}.photos.hole_${h.n}.name`
+          const copyKey = `present.${slug}.photos.hole_${h.n}.copy`
+          const raw = c(imageKey, h.image)
           const d = parseImg(raw)
           return (
-            <figure
-              key={i}
-              onClick={() => onImage(d.src)}
-              style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', border: '1px solid var(--line)', background: 'var(--ink-2)' }}
+            <div
+              key={h.n}
+              className="card"
+              style={{
+                background: 'var(--ink-2)',
+                border: '1px solid var(--line)',
+                borderRadius: 12,
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
             >
-              <EditableImage k={key} aspect="3/2" currentValue={raw}>
-                <div style={{ aspectRatio: '3 / 2', overflow: 'hidden' }}>
+              <div
+                style={{ cursor: 'zoom-in', aspectRatio: '3 / 2', background: 'var(--ink-3)', overflow: 'hidden' }}
+                onClick={() => onImage(d.src)}
+              >
+                <EditableImage k={imageKey} aspect="3/2" currentValue={raw}>
                   <img src={d.src} alt="" style={imgStyle(d)} />
+                </EditableImage>
+              </div>
+              <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                  <span
+                    className="display"
+                    style={{
+                      fontSize: 12,
+                      color: 'var(--lime)',
+                      letterSpacing: '0.14em',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Hole {h.n}
+                  </span>
+                  <span style={{ fontSize: 15, color: 'var(--cream)', fontWeight: 600, lineHeight: 1.2 }}>
+                    <Editable k={nameKey}>{c(nameKey, h.name)}</Editable>
+                  </span>
                 </div>
-              </EditableImage>
-            </figure>
+                <div style={{ fontSize: 13.5, color: 'var(--cream-dim)', lineHeight: 1.55 }}>
+                  <Editable k={copyKey} multiline>{c(copyKey, h.copy || '')}</Editable>
+                </div>
+              </div>
+            </div>
           )
         })}
       </div>

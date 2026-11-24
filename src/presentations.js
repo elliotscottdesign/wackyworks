@@ -21,36 +21,78 @@ export const PRESENTATIONS = {
       headline: 'An adventure golf course for Live Nation',
       body: `Wacky Works designs and builds immersive crazy golf courses — modular, shippable and hand-finished.
 
-This pack walks through what a 9-hole course for your venue could look like: a previous build we delivered under Plonk Golf at Borough, the nine obstacles earmarked for your course, how it ships and installs, and the costs.
+This course has been in operation at our Borough Market venue for over four years. It has entertained many Londoners and remains a great working, playable piece of art. The course was designed by Plonk and painted by one of London's top graffiti crews — including works by Tiser, Shuck 1, Nacho Welles and other members of the Ghostwriters. They will be employed again for the redux and any additional work added to the course, making this a truly unique London-themed experience.
 
-Every figure, image and paragraph in this pack can be tailored to your brief.`,
+This pack walks through the nine themed holes, how it ships and installs, and the costs.`,
     },
 
     photos: {
       intro:
-        'A previous 9-hole course we designed and built at Borough — the same team, same build quality, same attention to every painted detail. Click any image to view full-size.',
-      // 12 Borough photos copied in from the archive. Shown in a
-      // responsive gallery; founder can add / reorder / swap via
-      // inline edit mode.
-      images: [
-        borough('MPL_294A9363_Web.jpg'),
-        borough('294A8741_web.jpg'),
-        borough('MPL_294A9328_Web.jpg'),
-        borough('294A8734_web.jpg'),
-        borough('294A7912_web.jpg'),
-        borough('MPL_294A9392_Web.jpg'),
-        borough('294A8725_web.jpg'),
-        borough('294A8728_web.jpg'),
-        borough('294A7745_web_3.jpg'),
-        borough('294A7835_web_2.jpg'),
-        borough('294A7878_web.jpg'),
-        borough('MPL_294A9417_Web.jpg'),
+        'Nine themed holes, as installed at Plonk Borough. Click any image to view full-size.',
+      // 9 themed holes shown with their on-site photo + body copy.
+      // The photo swap for Hole 4 is a new image; founder can
+      // reorder / swap any image via the inline editor.
+      holes: [
+        {
+          n: 1,
+          name: 'Eel & Mushy Pea',
+          image: borough('294A7835_web_2.jpg'),
+          copy: 'Based on the traditional London food of eels and peas. Players putt around a 60cm-tall eel loop, pop over the pea hill and land near the hole.',
+        },
+        {
+          n: 2,
+          name: 'Thames jump · Tower of London',
+          image: borough('294A7745_web_3.jpg'),
+          copy: 'Players jump over the Thames and into the Tower of London. Lucky enough to ring the crown on the way through and they earn bonus shots.',
+        },
+        {
+          n: 3,
+          name: 'Borough Market',
+          image: borough('294A7878_web.jpg'),
+          copy: 'Players putt around Borough Market. A ½-pipe hole where players have to putt carefully up and down to reach the hole — or they will find themselves having to play a few more strokes.',
+        },
+        {
+          n: 4,
+          name: 'Tower Bridge',
+          image: borough('hole-4-tower-bridge.webp'),
+          copy: 'Players have to putt along and across Tower Bridge. Fall off along the way and they take a penalty. Themed with Tower Bridge sculptures and colour-coded astro.',
+        },
+        {
+          n: 5,
+          name: 'Love Guns · HMS Belfast',
+          image: borough('294A8728_web.jpg'),
+          copy: 'Players putt up a big ramp and load the cannons of the Belfast. Then pull back on a pinball-style launcher and try to hit bonuses to clear the mini-game and get back to the fairway to finish.',
+        },
+        {
+          n: 6,
+          name: 'London Eye',
+          image: borough('294A8725_web.jpg'),
+          copy: 'Players putt around a 1.2m-tall London Eye-themed loop. Hit it with enough power and the ball rolls around a Southbank skatepark-themed ramp down to the finishing hole.',
+        },
+        {
+          n: 7,
+          name: 'Red Phone Box',
+          image: borough('MPL_294A9363_Web.jpg'),
+          copy: 'Players hit the ball up a red phone box. The ball then rolls down a ball run and lands on a sloped, tricky fairway to putt out.',
+        },
+        {
+          n: 8,
+          name: 'Thames Barrier',
+          image: borough('MPL_294A9392_Web.jpg'),
+          copy: 'Players swoosh around a tidal wave taking over the Thames Barrier. Playing off the bumpers, they navigate the treacherous waters to reach the hole. Thick astro and bumpers can get in their way.',
+        },
+        {
+          n: 9,
+          name: 'Market Stall / Tube Train',
+          image: borough('MPL_294A9417_Web.jpg'),
+          copy: 'Players putt up into a market stall. The hole can be re-themed as a tube train with underground seating material cladding the inside. Land the ball into a catcher hole for a bonus; miss and the ball rolls back out to shoot again.',
+        },
       ],
     },
 
     holes: {
       intro:
-        'Nine interactive holes tailored for your space. Each piece is a proven design from our catalogue — the 3D renders below show the basic form of each hole. Final theming and finishes are confirmed at design stage.',
+        'See below the plain 3D models of the holes. These are from our catalogue and give you a basic concept of how the holes will play.',
       items: [
         {
           n: 1,
