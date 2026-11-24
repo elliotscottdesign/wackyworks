@@ -210,7 +210,7 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
           '2 × cocktail stations',
           '2 × fridges',
           'Liquor bottles, counters + shelves',
-          'Water in & out, plumbed to tank',
+          'Water in & out',
           'Power in on fuseboard',
           'Bar sign',
           'Container exterior theme-painted both sides',
