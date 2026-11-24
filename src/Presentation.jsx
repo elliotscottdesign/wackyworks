@@ -376,6 +376,7 @@ function HolesTab({ slug, fallback, onImage }) {
           const imageKey = `present.${slug}.holes.item_${h.n}.image`
           const nameKey = `present.${slug}.holes.item_${h.n}.name`
           const copyKey = `present.${slug}.holes.item_${h.n}.copy`
+          const titleKey = `present.${slug}.holes.item_${h.n}.catalogue_title`
           const raw = c(imageKey, h.image)
           const d = parseImg(raw)
           return (
@@ -391,18 +392,34 @@ function HolesTab({ slug, fallback, onImage }) {
                 flexDirection: 'column',
               }}
             >
-              {/* Image: title (from catalogue) + 3D render on white */}
+              {/* Catalogue title above the image */}
+              <div style={{ padding: '16px 18px 10px' }}>
+                <h3
+                  className="display"
+                  style={{
+                    fontSize: 22,
+                    color: 'var(--cream)',
+                    lineHeight: 1.05,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.01em',
+                  }}
+                >
+                  <Editable k={titleKey}>{c(titleKey, h.catalogueTitle || h.name)}</Editable>
+                </h3>
+              </div>
+
+              {/* 3D render only, on white */}
               <div
-                style={{ cursor: 'zoom-in', aspectRatio: '1179 / 1463', background: '#fff', overflow: 'hidden' }}
+                style={{ cursor: 'zoom-in', aspectRatio: '1192 / 1333', background: '#fff', overflow: 'hidden' }}
                 onClick={() => onImage(d.src)}
               >
-                <EditableImage k={imageKey} aspect="1179/1463" currentValue={raw}>
+                <EditableImage k={imageKey} aspect="1192/1333" currentValue={raw}>
                   <img src={d.src} alt="" style={imgStyle(d)} />
                 </EditableImage>
               </div>
 
-              {/* Body: hole number + name + copy */}
-              <div style={{ padding: '14px 18px 16px', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+              {/* Hole N · Name · copy */}
+              <div style={{ padding: '14px 18px 18px', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
                   <span
                     className="display"
