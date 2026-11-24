@@ -132,26 +132,42 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
     costs: {
       eyebrow: 'Investment',
       headline: 'Three ways to deliver this course',
-      body: `All prices exclude VAT. Every line can be cherry-picked — take the whole pack or just the pieces you need.`,
+      body: `All prices exclude VAT. Three options, from a straight container hand-off through to full workshop redux, storage and install.`,
       packages: [
         {
-          name: 'Natural Package',
-          total: '£70k',
-          blurb: 'Tried-and-tested obstacles in our standard finish — a blank canvas you can brand later.',
+          name: 'Delivered As-Is',
+          total: '£15k',
+          blurb:
+            'A container of the existing course delivered to Live Nation. You handle installation and touch-up paint where needed. Fastest route and lowest cost.',
+          lines: [
+            { item: 'Course + container delivery', amount: '£15k' },
+          ],
         },
         {
-          name: 'ColourWorx Package',
-          total: '£93k',
-          blurb: 'Hand-painted hole by hole + one sculpted centrepiece. Eye-catching and camera-happy.',
+          name: 'Workshop Redux',
+          total: '£25k',
+          blurb:
+            'Plonk takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint — it stays a second-hand course — but visibly refreshed.',
+          lines: [
+            { item: 'Course', amount: '£15k' },
+            { item: 'Redux (repaint + clean)', amount: '£10k' },
+          ],
         },
         {
-          name: 'Fully Themed Package',
-          total: '£120k',
-          blurb: 'A full world: 9 painted finishes, 7 varying-sized hand-sculpted centrepieces, delivered and installed.',
+          name: 'Full Redux · Stored · Installed',
+          total: '£42k',
+          blurb:
+            'Full workshop redux, stored by Plonk through to summer, then installed and delivered to a London venue of your choice — ready for events.',
+          lines: [
+            { item: 'Course (upfront)', amount: '£15k' },
+            { item: 'Continued storage', amount: '£7k' },
+            { item: 'Redux', amount: '£10k' },
+            { item: 'Install + delivery (London)', amount: '£10k' },
+          ],
         },
       ],
       footnote:
-        'Equipment pack (100 clubs, 1000 balls, 10,000 scorecards, 1000 pencils, info signs) is £5k on top where not already included.',
+        'Second-hand 9-hole course. Prices are the course only — equipment (clubs, balls, scorecards, pencils, signs) can be quoted on request.',
     },
   },
 }

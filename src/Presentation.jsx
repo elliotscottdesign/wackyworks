@@ -515,7 +515,7 @@ function CostsTab({ slug, fallback }) {
             >
               <div>
                 <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--lime)' }}>
-                  Package {n}
+                  Option {n}
                 </div>
                 <h3 className="display" style={{ fontSize: 22, color: 'var(--cream)', marginTop: 4 }}>
                   <Editable k={`present.${slug}.costs.pkg_${n}.name`}>
@@ -529,13 +529,23 @@ function CostsTab({ slug, fallback }) {
                     {c(`present.${slug}.costs.pkg_${n}.total`, p.total)}
                   </Editable>
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--cream-dim)', marginTop: 4 }}>+ VAT · turn-key</div>
+                <div style={{ fontSize: 12, color: 'var(--cream-dim)', marginTop: 4 }}>+ VAT</div>
               </div>
               <div style={{ color: 'var(--cream-dim)', fontSize: 14, lineHeight: 1.55 }}>
                 <Editable k={`present.${slug}.costs.pkg_${n}.blurb`} multiline>
                   {c(`present.${slug}.costs.pkg_${n}.blurb`, p.blurb)}
                 </Editable>
               </div>
+              {p.lines && p.lines.length > 0 && (
+                <ul style={{ listStyle: 'none', display: 'grid', gap: 7, paddingTop: 12, borderTop: '1px solid var(--line)' }}>
+                  {p.lines.map((l, li) => (
+                    <li key={li} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, fontSize: 13 }}>
+                      <span style={{ color: 'var(--cream-dim)' }}>{l.item}</span>
+                      <span style={{ color: 'var(--cream)', whiteSpace: 'nowrap' }}>{l.amount}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )
         })}
