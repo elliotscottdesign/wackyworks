@@ -4,7 +4,9 @@
 // present/<slug> with the access code.
 
 const borough = (f) => `/present/live-nation/${f}`
-const obstacle = (n) => `/catalog/pages/page-${String(n).padStart(2, '0')}.jpg`
+// Left-column crops of the catalogue pages — copy + 3D isometric
+// render only, with the themed install photos trimmed off.
+const hole = (n) => `/present/holes/hole-page-${String(n).padStart(2, '0')}.jpg`
 
 export const PRESENTATIONS = {
   'live-nation': {
@@ -50,15 +52,15 @@ Every figure, image and paragraph in this pack can be tailored to your brief.`,
       intro:
         'Nine interactive holes tailored for your space. Each piece is a proven design from our catalogue — the 3D renders below show the basic form of each hole. Final theming and finishes are confirmed at design stage.',
       items: [
-        { n: 1, name: 'Mini loop + mini hill', image: obstacle(16) },
-        { n: 2, name: 'Jump & catcher',        image: obstacle(11) },
-        { n: 3, name: '½ pipe',                image: obstacle(8) },
-        { n: 4, name: 'Long beam',             image: obstacle(19) },
-        { n: 5, name: 'Shooter deck game',     image: obstacle(17) },
-        { n: 6, name: 'Big loop + ramp',       image: obstacle(16) },
-        { n: 7, name: 'Big ramp + ball runs',  image: obstacle(9)  },
-        { n: 8, name: '¼ pipe',                image: obstacle(14) },
-        { n: 9, name: 'Jump & catcher',        image: obstacle(11) },
+        { n: 1, name: 'Mini loop + mini hill', image: hole(16) },
+        { n: 2, name: 'Jump & catcher',        image: hole(11) },
+        { n: 3, name: '½ pipe',                image: hole(8)  },
+        { n: 4, name: 'Big ramp + ball runs',  image: hole(9)  },
+        { n: 5, name: 'Shooter deck game',     image: hole(17) },
+        { n: 6, name: 'Big loop + ramp',       image: hole(16) },
+        { n: 7, name: 'Long beam',             image: hole(19) },
+        { n: 8, name: '¼ pipe',                image: hole(14) },
+        { n: 9, name: 'Skeeball',              image: hole(15) },
       ],
     },
 

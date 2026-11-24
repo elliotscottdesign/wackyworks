@@ -371,7 +371,7 @@ function HolesTab({ slug, fallback, onImage }) {
         introKey={`present.${slug}.holes.intro`}
         introFallback={fallback.holes.intro}
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16 }}>
         {fallback.holes.items.map((h) => {
           const imageKey = `present.${slug}.holes.item_${h.n}.image`
           const nameKey = `present.${slug}.holes.item_${h.n}.name`
@@ -384,34 +384,28 @@ function HolesTab({ slug, fallback, onImage }) {
               style={{ background: 'var(--ink-2)', border: '1px solid var(--line)', borderRadius: 12, overflow: 'hidden' }}
             >
               <div
-                style={{ position: 'relative', cursor: 'zoom-in', aspectRatio: '4 / 3', background: 'var(--ink-3)', overflow: 'hidden' }}
+                style={{ cursor: 'zoom-in', aspectRatio: '1036 / 2526', background: '#fff', overflow: 'hidden' }}
                 onClick={() => onImage(d.src)}
               >
-                <EditableImage k={imageKey} aspect="4/3" currentValue={raw}>
+                <EditableImage k={imageKey} aspect="1036/2526" currentValue={raw}>
                   <img src={d.src} alt="" style={imgStyle(d)} />
                 </EditableImage>
+              </div>
+              <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'baseline', gap: 10 }}>
                 <span
                   className="display"
                   style={{
-                    position: 'absolute',
-                    top: 10,
-                    left: 10,
-                    background: 'rgba(14, 15, 12, 0.85)',
-                    color: 'var(--lime)',
-                    padding: '4px 11px',
-                    borderRadius: 999,
                     fontSize: 13,
-                    letterSpacing: '0.1em',
-                    border: '1px solid var(--line)',
+                    color: 'var(--lime)',
+                    letterSpacing: '0.12em',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   Hole {h.n}
                 </span>
-              </div>
-              <div style={{ padding: '12px 16px' }}>
-                <div style={{ fontSize: 15, color: 'var(--cream)', fontWeight: 600 }}>
+                <span style={{ fontSize: 14.5, color: 'var(--cream)', fontWeight: 600, lineHeight: 1.2 }}>
                   <Editable k={nameKey}>{c(nameKey, h.name)}</Editable>
-                </div>
+                </span>
               </div>
             </div>
           )
