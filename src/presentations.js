@@ -42,7 +42,7 @@ This pack walks through the nine themed holes, how it ships and installs, and th
         {
           n: 2,
           name: 'Thames jump · Tower of London',
-          image: borough('294A7745_web_3.jpg'),
+          image: borough('hole-2-thames-tower.jpg'),
           copy: 'Players jump over the Thames and into the Tower of London. Lucky enough to ring the crown on the way through and they earn bonus shots.',
         },
         {
