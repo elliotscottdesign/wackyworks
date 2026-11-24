@@ -245,13 +245,15 @@ function Header({ slug, fallback, active, setActive }) {
       </div>
 
       <nav
+        className="present-tabs"
         style={{
           maxWidth: 1180,
           margin: '0 auto',
-          padding: '0 16px',
+          padding: '0 12px',
           display: 'flex',
-          gap: 4,
-          overflowX: 'auto',
+          gap: 2,
+          flexWrap: 'wrap',
+          justifyContent: 'center',
         }}
       >
         {TABS.map((t) => {
@@ -264,11 +266,11 @@ function Header({ slug, fallback, active, setActive }) {
                 background: 'transparent',
                 border: 'none',
                 color: on ? 'var(--lime)' : 'var(--cream-dim)',
-                padding: '12px 14px',
+                padding: '10px 12px',
                 borderBottom: `2px solid ${on ? 'var(--lime)' : 'transparent'}`,
                 whiteSpace: 'nowrap',
-                fontSize: 12,
-                letterSpacing: '0.14em',
+                fontSize: 11.5,
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 fontWeight: 700,
                 cursor: 'pointer',
