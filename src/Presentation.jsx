@@ -4,7 +4,7 @@
 //   present.<slug>.code
 // Everything else is editable via inline edit mode + the admin
 // Content pages under page = "present.<slug>".
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { X, ArrowUpRight, ChevronRight } from 'lucide-react'
 import { getPresentation } from './presentations.js'
@@ -341,17 +341,7 @@ function IntroTab({ slug, fallback, onImage }) {
               width: '100%',
             }}
           >
-            <video
-              src={heroVideo}
-              poster={heroD.src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls={false}
-              preload="metadata"
-              style={{ width: '100%', display: 'block', aspectRatio: '9 / 16', objectFit: 'cover', background: '#000' }}
-            />
+            <HeroVideo src={heroVideo} poster={heroD.src} />
           </figure>
         ) : (
           <figure
@@ -376,6 +366,46 @@ function IntroTab({ slug, fallback, onImage }) {
         )}
       </div>
     </div>
+  )
+}
+
+// Autoplay-on-load video. `autoplay` alone fails on some browsers
+// (Safari throttles until user interaction, Chrome occasionally
+// defers). Calling play() explicitly on mount — while muted — forces
+// playback the moment the element is in the DOM.
+function HeroVideo({ src, poster }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    v.muted = true
+    v.playsInline = true
+    const kick = () => v.play().catch(() => {})
+    kick()
+    // Retry once the element has enough data, in case the first call
+    // happened before the stream was ready.
+    v.addEventListener('loadeddata', kick, { once: true })
+    v.addEventListener('canplay', kick, { once: true })
+    return () => {
+      v.removeEventListener('loadeddata', kick)
+      v.removeEventListener('canplay', kick)
+    }
+  }, [src])
+  return (
+    <video
+      ref={ref}
+      src={src}
+      poster={poster}
+      autoPlay
+      muted
+      loop
+      playsInline
+      controls={false}
+      preload="auto"
+      disablePictureInPicture
+      disableRemotePlayback
+      style={{ width: '100%', display: 'block', aspectRatio: '9 / 16', objectFit: 'cover', background: '#000' }}
+    />
   )
 }
 
