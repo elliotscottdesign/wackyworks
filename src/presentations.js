@@ -4,7 +4,7 @@
 // present/<slug> with the access code.
 
 const borough = (f) => `/present/live-nation/${f}`
-// Live Nation 3D renders — clean mint-stripped PNGs from the Borough
+// Live Nation 3D renders, clean mint-stripped PNGs from the Borough
 // 3d renders folder, numbered 1..9 to match the hole order.
 const hole = (n) => `/present/holes/hole-${String(n).padStart(2, '0')}.jpg`
 
@@ -166,16 +166,14 @@ This pack walks through the nine themed holes, how it ships and installs, and th
       headline: 'Shipped flat-pack · installed on-site',
       body: `Each hole averages 6m², a 9-hole course fits comfortably into 80–150m² depending on circulation and theming.
 
-The entire course ships on a small number of pallets. Local labour handles install under supervision from a Wacky Works project manager, no messy on-site fabrication, no production interruption to your venue.
-
-Lead time is typically 10–14 weeks from deposit to delivery.`,
+The entire course ships on a small number of pallets. Local labour handles install under supervision from a Wacky Works project manager, no messy on-site fabrication, no production interruption to your venue.`,
       planImage: borough('layout-plan-top.webp'),   // top-down plan of the course
       planIsoImage: borough('layout-plan-iso.webp'), // isometric 3D view
       dimensions: '10m × 20m pitch',
       storage: {
         eyebrow: 'Storage & bar',
-        headline: 'A 40ft container stores the whole course',
-        body: `The entire 9-hole course packs down into a single 40ft shipping container. With the obstacles stored toward the front of the container, the rear end can be fitted out as a built-in bar — a complete pop-up footprint from a single unit.
+        headline: 'A 40ft container stores the whole course and bar',
+        body: `The entire 9-hole course packs down into a single 40ft shipping container. With the obstacles stored toward the front of the container, the rear end can be fitted out as a built-in bar, a complete pop-up footprint from a single unit.
 
 Delivery, stacking order and bar fit-out are all handled by Wacky Works. When the course isn't in use, the container doubles as its own storage.`,
         image: borough('storage-container.webp'),
@@ -205,7 +203,7 @@ Delivery, stacking order and bar fit-out are all handled by Wacky Works. When th
         headline: 'Bar & Container',
         price: '£25k',
         priceNote: '+ VAT',
-        intro: 'Theme-painted 40ft container (both sides) with a full interior bar fit-out — delivered ready to serve.',
+        intro: 'Theme-painted 40ft container (both sides) with a full interior bar fit-out, delivered ready to serve.',
         items: [
           '2 × cocktail stations',
           '2 × fridges',
