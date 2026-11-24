@@ -136,21 +136,23 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
       packages: [
         {
           name: 'Delivered As-Is',
-          total: '£15k',
+          total: '£20k',
           blurb:
             'A container of the existing course delivered to Live Nation. You handle installation and touch-up paint where needed. Fastest route and lowest cost.',
           lines: [
-            { item: 'Course + container delivery', amount: '£15k' },
+            { item: 'Course', amount: '£15k' },
+            { item: 'Container delivery', amount: '£5k' },
           ],
         },
         {
           name: 'Workshop Redux',
-          total: '£25k',
+          total: '£30k',
           blurb:
             'Plonk takes the course into our workshop, repaints and cleans it down, then delivers it in January ready for Live Nation to store and install. Not restored to mint — it stays a second-hand course — but visibly refreshed.',
           lines: [
             { item: 'Course', amount: '£15k' },
             { item: 'Redux (repaint + clean)', amount: '£10k' },
+            { item: 'Container delivery', amount: '£5k' },
           ],
         },
         {
@@ -162,7 +164,8 @@ Lead time is typically 10–14 weeks from deposit to delivery.`,
             { item: 'Course (upfront)', amount: '£15k' },
             { item: 'Continued storage', amount: '£7k' },
             { item: 'Redux', amount: '£10k' },
-            { item: 'Install + delivery (London)', amount: '£10k' },
+            { item: 'Install (London)', amount: '£5k' },
+            { item: 'Delivery (London)', amount: '£5k' },
           ],
         },
       ],
