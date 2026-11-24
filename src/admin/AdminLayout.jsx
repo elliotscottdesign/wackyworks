@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
-import { LogOut, ExternalLink, Eye } from 'lucide-react'
+import { LogOut, ExternalLink, Eye, Presentation as PresentIcon } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import { PRESENTATIONS } from '../presentations.js'
 
 const PAGES = [
   { slug: 'header', label: 'Header + Nav' },
@@ -11,6 +12,11 @@ const PAGES = [
   { slug: 'packages', label: 'Packages (3)' },
   { slug: 'footer', label: 'Footer' },
 ]
+
+const PRESENTATION_LIST = Object.entries(PRESENTATIONS).map(([slug, p]) => ({
+  slug,
+  client: p.client,
+}))
 
 export default function AdminLayout() {
   const navigate = useNavigate()
@@ -40,6 +46,35 @@ export default function AdminLayout() {
           <NavLink key={p.slug} to={`/admin/content/${p.slug}`} style={navStyle}>
             {p.label}
           </NavLink>
+        ))}
+
+        <div style={{ margin: '18px 0 6px', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--cream-dim)' }}>
+          Client presentations
+        </div>
+        {PRESENTATION_LIST.map((p) => (
+          <div key={p.slug} style={{ marginBottom: 4 }}>
+            <NavLink to={`/admin/content/present.${p.slug}`} style={navStyle}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <PresentIcon size={13} /> {p.client}
+              </span>
+            </NavLink>
+            <a
+              href={`/present/${p.slug}`}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'block',
+                padding: '0 12px 8px 32px',
+                fontSize: 10.5,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--cream-dim)',
+                textDecoration: 'none',
+              }}
+            >
+              /present/{p.slug} ↗
+            </a>
+          </div>
         ))}
 
         <div style={{ margin: '18px 0 6px', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--cream-dim)' }}>

@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import PublicSite from './PublicSite.jsx'
 import StartProject from './StartProject.jsx'
+import Presentation from './Presentation.jsx'
 import AdminGate from './admin/AdminGate.jsx'
 import AdminLayout from './admin/AdminLayout.jsx'
 import AdminHome from './admin/AdminHome.jsx'
@@ -12,6 +13,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<PublicSite />} />
       <Route path="/start-a-project" element={<StartProject />} />
+      <Route path="/present/:slug" element={<Presentation />} />
       <Route
         path="/admin"
         element={
