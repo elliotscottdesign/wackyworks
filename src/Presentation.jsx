@@ -456,7 +456,7 @@ function HolesTab({ slug, fallback, onImage }) {
         introKey={`present.${slug}.holes.intro`}
         introFallback={fallback.holes.intro}
       />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
+      <div className="holes-grid">
         {fallback.holes.items.map((h) => {
           const imageKey = `present.${slug}.holes.item_${h.n}.image`
           const nameKey = `present.${slug}.holes.item_${h.n}.name`
@@ -493,13 +493,14 @@ function HolesTab({ slug, fallback, onImage }) {
                 </h3>
               </div>
 
-              {/* 3D render only, on white */}
+              {/* 3D render only, on white. Contain-fit so varying
+                  per-render aspect ratios all show whole, never cropped. */}
               <div
-                style={{ cursor: 'zoom-in', aspectRatio: '1192 / 1333', background: '#fff', overflow: 'hidden' }}
+                style={{ cursor: 'zoom-in', aspectRatio: '1 / 1', background: '#fff', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 12 }}
                 onClick={() => onImage(d.src)}
               >
-                <EditableImage k={imageKey} aspect="1192/1333" currentValue={raw}>
-                  <img src={d.src} alt="" style={imgStyle(d)} />
+                <EditableImage k={imageKey} aspect="1/1" currentValue={raw}>
+                  <img src={d.src} alt="" style={{ maxWidth: '100%', maxHeight: '100%', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }} />
                 </EditableImage>
               </div>
 
@@ -688,8 +689,50 @@ function LegendSwatch({ color, border, label }) {
 
 function CostsTab({ slug, fallback }) {
   const c = useContent()
+  const deliverables = fallback.costs?.deliverables
   return (
     <div>
+      {deliverables && (
+        <section style={{ marginBottom: 48 }}>
+          <div className="eyebrow" style={{ marginBottom: 10 }}>
+            <Editable k={`present.${slug}.costs.deliverables.eyebrow`}>
+              {c(`present.${slug}.costs.deliverables.eyebrow`, deliverables.eyebrow)}
+            </Editable>
+          </div>
+          <h2
+            className="display"
+            style={{ fontSize: 'clamp(28px, 4vw, 40px)', color: 'var(--cream)', marginBottom: 20 }}
+          >
+            <Editable k={`present.${slug}.costs.deliverables.headline`}>
+              {c(`present.${slug}.costs.deliverables.headline`, deliverables.headline)}
+            </Editable>
+          </h2>
+          <div
+            style={{
+              background: 'var(--ink-2)',
+              border: '1px solid var(--line)',
+              borderRadius: 14,
+              padding: '22px 26px',
+            }}
+          >
+            <Editable k={`present.${slug}.costs.deliverables.items`} multiline>
+              <ul style={{ listStyle: 'none', display: 'grid', gap: 10, margin: 0, padding: 0 }}>
+                {(c(`present.${slug}.costs.deliverables.items`, deliverables.items.join('\n'))
+                  .split('\n')
+                  .map((s) => s.trim())
+                  .filter(Boolean)
+                ).map((item, i) => (
+                  <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', color: 'var(--cream)', fontSize: 15, lineHeight: 1.55 }}>
+                    <span style={{ color: 'var(--lime)', flexShrink: 0, lineHeight: 1.55 }}>◆</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </Editable>
+          </div>
+        </section>
+      )}
+
       <SectionHead
         slug={slug}
         eyebrowKey={`present.${slug}.costs.eyebrow`}

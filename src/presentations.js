@@ -187,12 +187,25 @@ Delivery, stacking order and bar fit-out are all handled by Plonk. When the cour
       eyebrow: 'Investment',
       headline: 'Three ways to deliver this course',
       body: `All prices exclude VAT. Three options, from a straight container hand-off through to full workshop redux, storage and install.`,
+      deliverables: {
+        eyebrow: 'What you get',
+        headline: 'Deliverables',
+        items: [
+          '9 London themed holes as per the course photos',
+          'Painted drinks barrels for each hole',
+          'Club rack',
+          'House rules sign',
+          'Scorecard design',
+          'Balls',
+          'Pencils',
+        ],
+      },
       packages: [
         {
           name: 'Delivered As-Is',
           total: '£20k',
           blurb:
-            'A container of the existing course delivered to Live Nation. You handle installation and touch-up paint where needed. Fastest route and lowest cost.',
+            'A container of the existing course delivered to Live Nation. You handle installation and touch-up paint where needed. Fastest route and lowest cost. To save money, the course can be paint-touched on site when installed, saving on workshop costs.',
           lines: [
             { item: 'Course', amount: '£15k' },
             { item: 'Container delivery', amount: '£5k' },
